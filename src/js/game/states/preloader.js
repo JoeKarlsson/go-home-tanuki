@@ -22,14 +22,20 @@ preloader.preload = function () {
 
   this.game.load.image('ship', 'images/tanukifly1.png');
   this.game.load.image('tanuki2', 'images/tanukifly2.png');
-  this.load.spritesheet('tanuki', 'images/tanukisheet.png', 115, 100, 2);
+  // this.load.spritesheet('tanuki', 'images/tanukisheet.png', 115, 100, 2);
+
+  // for splash state
+  this.game.load.image('splash-1', 'images/splash/tanuki-splash-1.png');
+  this.game.load.image('splash-2', 'images/splash/tanuki-splash-2.png');
+  this.game.load.image('splash-text', 'images/splash/go-home-tanuki-text.png');
+  this.game.load.image('splash-phone', 'images/splash/phone.png');
 
 };
 
+
+// go to splash screen
 preloader.create = function () {
-  this.game.state.start('game');
-
-
+  this.game.state.start('splash');
 };
 
 module.exports = preloader;
