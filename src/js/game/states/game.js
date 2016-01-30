@@ -16,7 +16,7 @@ var anchorA = 0.5; // rotational point for player
 var anchorB = 0.5; // rotational point for player
 
 var upAngle = -40; // how many degrees the player will rotate on click
-var upAngleTime = 100; // how many seconds player will stay rotated in ms
+var upAngleTime = 1000; // how many seconds player will stay rotated in ms
 
 var ACCELERATION = 600;
 var DRAG = 400;
