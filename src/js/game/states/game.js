@@ -53,19 +53,15 @@ game.create = function () {
   lamp.setAll('outOfBoundsKill', true);
   lamp.setAll('checkWorldBounds', true);
 
-  this.timer = game.time.events.loop(2000, addSmallSake, this);
-
   // init small sake
   smallSake = game.add.group();
   smallSake.enableBody = true;
-  smallSake.physicsType = Phaser.Physics.ARCADE;
-  smallSake.createMultiple(5,'smallSake');
-  smallSake.setAll('anchor.x', 0.5);
-  smallSake.setAll('anchor.y', 0.5);
-  smallSake.setAll('outBoundsKill', true);
+  smallSake.createMultiple(4,'smallSake');
+  smallSake.setAll('outOfBoundsKill', true);
   smallSake.setAll('checkWorldBounds', true);
 
-  this.timer = game.time.events.loop(2000, addLamp, this);
+  this.timer = game.time.events.loop(game.rnd.integerInRange(3000,7000), addSmallSake, this);
+  this.timer = game.time.events.loop(game.rnd.integerInRange(3000,7000), addLamp, this);
 
 }; // ******** end of game create **********
 
@@ -101,7 +97,10 @@ game.update = function () {
       flap();
     }
 
+  // player interactions with world objects
   game.physics.arcade.overlap(player,lamp,death,null,this);
+  game.physics.arcade.overlap(player,smallSake,collectSake,null,this);
+
 
 }; // ******** end of game create **********
 
@@ -126,7 +125,7 @@ function death() {
 
 function addLamp() {
   var item = lamp.getFirstExists(false);
-  game.physics.arcade.collide(item,ground);
+  // game.physics.arcade.collide(item,ground);
   item.reset(1023, 367);
   item.body.velocity.x = -200;
   item.body.immovable = true;
@@ -134,13 +133,16 @@ function addLamp() {
 
 function addSmallSake() {
   var item = smallSake.getFirstExists(false);
-  item.reset(1023, game.rnd.integerInRange(10,500));
+  item.reset(1023, game.rnd.integerInRange(50,500));
   item.body.velocity.x = -200;
   item.body.immovable = true;
+  // item.exists = false;
+  // console.log(item.exists);
 }
 
 function collectSake() {
-  console.log('collected');
+  console.log(smallSake);
+  drunkMeter += 1;
 }
 
 function restartGame(){
