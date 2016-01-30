@@ -1,0 +1,25 @@
+# Node.js with Express and Stlyus
+/.monitor
+
+# Sublime
+*.sublime-project
+*.sublime-workspace
+
+# Windows
+Thumbs.db
+
+# OsX
+.DS_Store
+Icon?
+._*
+.Spotlight-V100
+.Trashes
+
+# nodejs npm modules
+node_modules
+
+# ZSH Cake plugin cache
+/.cake_task_cache
+
+# Build files
+/build/*
