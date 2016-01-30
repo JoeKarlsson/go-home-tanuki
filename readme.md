@@ -1,6 +1,6 @@
-# A Phaser.js Boilerplate
+# Go Home Tankuki (You're Drunk)
 
-A template to boost the productivity of Phaser.js game developers. Provides tools to improve code reuse, assist in development activities, and can package projects into production ready bundles.
+A Phaser.js game
 
 ## What's in the Box
 
@@ -14,11 +14,10 @@ You will need to first install [Node.js](http://nodejs.org/download/) and the gr
 
 ### Setup Your Project
 
-Download and unpack [The Phaser.js Boilerplate](https://github.com/lukewilde/phaser-js-boilerplate/archive/master.zip). Or alternatively checkout from source:
+Download and unpack [Go Home Tanuki](https://github.com/JoeKarlsson1/go-home-tanuki). Or alternatively checkout from source:
 
-    git clone git@github.com:lukewilde/phaser-js-boilerplate.git my-sweet-game
-    cd my-sweet-game
-    git remote rename origin boilerplate
+    git clone https://github.com/JoeKarlsson1/go-home-tanuki
+    cd go-home-tanuki
 
 Next, inside the project, you need to install the project's various NPM dependencies:
 
@@ -27,14 +26,6 @@ Next, inside the project, you need to install the project's various NPM dependen
 And you should now be ready to spin up a development build of your new project:
 
     grunt
-
-## Developing
-
-Your first port of call will likely be to customise the properties found in `package.json` and `src/js/game/properties.js`.
-
-All of the files required to run the game will live in the `src` folder, this will include any JavaScript, images, HTML ([Jade](http://jade-lang.com/)), and CSS ([Stylus](http://learnboost.github.io/stylus/)). When the default grunt task is invoked, these files are compiled to a `build` directory.
-
-Files in the `build` directory will always be generated and excluded from Git by the `.gitignore`, as such these will removed without warning and should generally not be edited.
 
 ### Recommendations
 
