@@ -13,7 +13,8 @@ var sound;
 var tween;
 var youDrunk
 var transitionSpeed = 2;
-var style = {font: 'bold 32px monospace', fill: '#fff', boundsAlignH: 'center', boundsAlignV: 'middle'};
+var style = { font : 'bold 32px monospace', fill : '#fff', boundsAlignH : 'center', boundsAlignV : 'middle' };
+
 splash.prototype.preload = function() {
 
 };
@@ -24,14 +25,13 @@ splash.prototype.create = function() {
   this.ground = this.add.tileSprite(0, 656, 1024, 112, 'ground');
   shops = this.add.sprite( -100, 0, 'shop' );
 
-  
-  tanuki = this.add.image(0,0,'splash-1');
+  tanuki = this.add.image(0, 0, 'splash-1');
   fireButton = this.input.keyboard.addKey( Phaser.Keyboard.SPACEBAR );
   text = this.add.text( 350, 650, 'Click to start', style );
-   this.time.events.add( Phaser.Timer.SECOND * 2, this.addPhone, this );
-   this.time.events.add( Phaser.Timer.SECOND * 3, this.addMessage, this );
-   this.time.events.add( Phaser.Timer.SECOND * 4, this.addTitle, this );
-   this.time.events.add( Phaser.Timer.SECOND * 4.5, this.addYouDrunk, this );
+  this.time.events.add( Phaser.Timer.SECOND * 2, this.addPhone, this );
+  this.time.events.add( Phaser.Timer.SECOND * 3, this.addMessage, this );
+  this.time.events.add( Phaser.Timer.SECOND * 4, this.addTitle, this );
+  this.time.events.add( Phaser.Timer.SECOND * 4.5, this.addYouDrunk, this );
 };
 
 splash.prototype.update = function() {
@@ -46,17 +46,16 @@ splash.prototype.update = function() {
     var tweenTitle = this.add.tween(title);
     var tweenSplash = this.add.tween(tanuki);
 
-    tweenText.to({x:-1440}, 1000, 'Linear', true);
-    tweenPhone.to({x:-1440}, 1000, 'Linear', true);
-    tweenMessage.to({x:-1440}, 1000, 'Linear', true);
-    tweenTitle.to({x:-1440}, 1000, 'Linear', true);
-    tweenSplash.to({x:-1440}, 1000, 'Linear', true);
-    tween.to({x:-1440}, 1000, 'Linear', true).onComplete.add(function () {
+
+    tweenText.to({ x :-1440 }, 1000, 'Linear', true);
+    tweenPhone.to({ x :-1440 }, 1000, 'Linear', true);
+    tweenMessage.to({ x :-1440 }, 1000, 'Linear', true);
+    tweenTitle.to({ x :-1440 }, 1000, 'Linear', true);
+    tweenSplash.to({ x :-1440 }, 1000, 'Linear', true);
+    tween.to({ x :-1440 }, 1000, 'Linear', true).onComplete.add(function () {
       console.log('game');
       self.game.state.start('game');
     });
-    // go to game
-    // this.game.state.start( 'game' );
   }
 };
 
@@ -73,13 +72,13 @@ splash.prototype.addMessage = function () {
   message = this.add.image( 25, 260, 'splash-message-box' );
   message.animations.add('shake');
   message.animations.play('shake', 30, true);
-  this.add.tween(message).to({ x: 50 }, 150, Phaser.Easing.Quadratic.InOut, true, 0, 1000, true);
+  this.add.tween(message).to({ x : 50 }, 150, Phaser.Easing.Quadratic.InOut, true, 0, 1000, true);
 };
 
 splash.prototype.addTitle = function () {
-    title = this.add.image( 175,0, 'splash-text' );
+  title = this.add.image( 175, 0, 'splash-text' );
 };
 
 splash.prototype.addYouDrunk = function () {
-    youDrunk = this.add.image( 300,230, 'youdrunk' );
+  youDrunk = this.add.image( 300, 230, 'youdrunk' );
 };
