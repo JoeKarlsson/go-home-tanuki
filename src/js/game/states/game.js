@@ -133,11 +133,12 @@ game.update = function () {
     }
 
   // player interactions with world objects
-  // game.physics.arcade.overlap(player,lamp,death,null,this);
+  game.physics.arcade.overlap(player,lamp,death,null,this);
   game.physics.arcade.overlap(player,smallSake,collectSake1,null,this);
   game.physics.arcade.overlap(player,largeSake,collectSake3,null,this);
 
-
+  // Create drunkness label
+  this.drunkScore = game.add.text(20, 20, "0", { font : '30px Arial', fill: '#fffff'});
 
 }; // ******** end of game create **********
 
@@ -204,6 +205,7 @@ function addLargeSake() {
 function collectSake1(player,sake) {
   sake.kill();
   drunkMeter += 1;
+  this.drunkScore.text = drunkMeter;
   console.log(drunkMeter);
 }
 
