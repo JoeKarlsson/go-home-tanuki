@@ -25,6 +25,7 @@ preloader.preload = function () {
   // this.load.spritesheet('tanuki', 'images/tanukisheet.png', 115, 100, 2);
 
   // for splash state
+  this.game.load.audio('ringing', 'audio/ringing.mp3');
   this.game.load.image('splash-1', 'images/splash/splash-main.png');
   this.game.load.image('shop', 'images/splash/all-shops.png');
   this.game.load.image('splash-text', 'images/splash/go-home-tanuki-text.png');

@@ -9,6 +9,7 @@ var phone;
 var message;
 var title;
 var tanuki;
+var sound;
 var tween;
 var youDrunk
 var transitionSpeed = 2;
@@ -18,11 +19,12 @@ splash.prototype.preload = function() {
 };
 
 splash.prototype.create = function() {
+  this.sound = this.sound.play('ringing');
   this.starfield = this.add.tileSprite( 0, 0, 1024, 768, 'starfield' );
   this.ground = this.add.tileSprite(0, 656, 1024, 112, 'ground');
   shops = this.add.sprite( -100, 0, 'shop' );
 
-
+  
   tanuki = this.add.image(0,0,'splash-1');
   fireButton = this.input.keyboard.addKey( Phaser.Keyboard.SPACEBAR );
   text = this.add.text( 350, 650, 'Click to start', style );
