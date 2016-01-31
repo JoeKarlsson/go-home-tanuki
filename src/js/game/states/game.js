@@ -7,16 +7,18 @@ var ground;
 var leftClick;
 var lamp;
 var smallSake;
+var largeSake;
 var drunkMeter = 10;
 
+var lampSpeed = -200;
 var groundSpeed = 2; // speed of ground movement
-var skySpeed = 2; // speed of sky movement
+var skySpeed = 1.5; // speed of sky movement
 
-var gravityForce = 1000;
+var gravityForce = 1000; // sets gravity
 var flapForce = -400; // controls amount of 'power' player flaps
 
-var anchorA = 0.5; // rotational point for player
 var anchorB = 0.5; // rotational point for player
+var anchorA = 0.5; // rotational point for player
 
 var upAngle = -40; // how many degrees the player will rotate on click
 var upAngleTime = 100; // how many seconds player will stay rotated in ms
@@ -56,10 +58,18 @@ game.create = function () {
   // init small sake
   smallSake = game.add.group();
   smallSake.enableBody = true;
-  smallSake.createMultiple(4,'smallSake');
+  smallSake.createMultiple(100,'smallSake');
   smallSake.setAll('outOfBoundsKill', true);
   smallSake.setAll('checkWorldBounds', true);
 
+  // init large sake
+  largeSake = game.add.group();
+  largeSake.enableBody = true;
+  largeSake.createMultiple(100,'largeSake');
+  largeSake.setAll('outOfBoundsKill', true);
+  largeSake.setAll('checkWorldBounds', true);
+
+  this.timer = game.time.events.loop(game.rnd.integerInRange(7000,10000), addLargeSake, this);
   this.timer = game.time.events.loop(game.rnd.integerInRange(3000,7000), addSmallSake, this);
   this.timer = game.time.events.loop(game.rnd.integerInRange(3000,7000), addLamp, this);
 
@@ -99,7 +109,9 @@ game.update = function () {
 
   // player interactions with world objects
   game.physics.arcade.overlap(player,lamp,death,null,this);
-  game.physics.arcade.overlap(player,smallSake,collectSake,null,this);
+  game.physics.arcade.overlap(player,smallSake,collectSake1,null,this);
+  game.physics.arcade.overlap(player,largeSake,collectSake3,null,this);
+
 
 
 }; // ******** end of game create **********
@@ -123,11 +135,11 @@ function death() {
   ground.tilePosition.x = 0;
 }
 
+// adds objects into the world
 function addLamp() {
   var item = lamp.getFirstExists(false);
-  // game.physics.arcade.collide(item,ground);
   item.reset(1023, 367);
-  item.body.velocity.x = -200;
+  item.body.velocity.x = lampSpeed;
   item.body.immovable = true;
 }
 
@@ -136,13 +148,25 @@ function addSmallSake() {
   item.reset(1023, game.rnd.integerInRange(50,500));
   item.body.velocity.x = -200;
   item.body.immovable = true;
-  // item.exists = false;
-  // console.log(item.exists);
 }
 
-function collectSake() {
-  console.log(smallSake);
+function addLargeSake() {
+  var item = largeSake.getFirstExists(false);
+  item.reset(1023, game.rnd.integerInRange(50,500));
+  item.body.velocity.x = -200;
+  item.body.immovable = true;
+}
+
+function collectSake1(player,sake) {
+  sake.kill();
   drunkMeter += 1;
+  console.log(drunkMeter);
+}
+
+function collectSake3(player,sake) {
+  sake.kill();
+  drunkMeter += 3;
+  console.log(drunkMeter);
 }
 
 function restartGame(){
