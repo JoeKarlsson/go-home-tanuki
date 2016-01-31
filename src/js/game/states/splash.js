@@ -18,15 +18,16 @@ splash.prototype.preload = function() {
 
 splash.prototype.create = function() {
   this.starfield = this.add.tileSprite( 0, 0, 1024, 768, 'starfield' );
+  this.ground = this.add.tileSprite(0, 656, 1024, 112, 'ground');
   shops = this.add.sprite( -100, 0, 'shop' );
 
 
   tanuki = this.add.image(0,0,'splash-1');
-  fireButton = this.input.keyboard.addKey( Phaser.Keyboard.UP );
+  fireButton = this.input.keyboard.addKey( Phaser.Keyboard.SPACEBAR );
   text = this.add.text( 350, 650, 'Click to start', style );
-   this.time.events.add( Phaser.Timer.SECOND * 3, this.addPhone, this );
-   this.time.events.add( Phaser.Timer.SECOND * 6, this.addMessage, this );
-   this.time.events.add( Phaser.Timer.SECOND * 6.5, this.addTitle, this );
+   this.time.events.add( Phaser.Timer.SECOND * 1, this.addPhone, this );
+   this.time.events.add( Phaser.Timer.SECOND * 2, this.addMessage, this );
+   this.time.events.add( Phaser.Timer.SECOND * 3, this.addTitle, this );
 };
 
 splash.prototype.update = function() {
