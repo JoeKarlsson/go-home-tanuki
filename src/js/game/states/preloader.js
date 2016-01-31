@@ -25,10 +25,10 @@ preloader.preload = function () {
   // this.load.spritesheet('tanuki', 'images/tanukisheet.png', 115, 100, 2);
 
   // for splash state
-  this.game.load.image('splash-1', 'images/splash/tanuki-splash-1.png');
-  this.game.load.image('splash-2', 'images/splash/tanuki-splash-2.png');
+  this.game.load.image('splash-1', 'images/splash/splash-main.png');
   this.game.load.image('splash-text', 'images/splash/go-home-tanuki-text.png');
   this.game.load.image('splash-phone', 'images/splash/phone.png');
+  this.game.load.image('splash-message-box', 'images/splash/phone-message.png');
 
 };
 
