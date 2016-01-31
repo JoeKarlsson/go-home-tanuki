@@ -13,6 +13,11 @@ var sound;
 var tween;
 var youDrunk
 var transitionSpeed = 2;
+var tweenText;
+var tweenPhone;
+var tweenMessage;
+var tweenTitle;
+var tweenSplash;
 var style = { font : 'bold 32px monospace', fill : '#fff', boundsAlignH : 'center', boundsAlignV : 'middle' };
 
 splash.prototype.preload = function() {
@@ -32,6 +37,11 @@ splash.prototype.create = function() {
   this.time.events.add( Phaser.Timer.SECOND * 3, this.addMessage, this );
   this.time.events.add( Phaser.Timer.SECOND * 4, this.addTitle, this );
   this.time.events.add( Phaser.Timer.SECOND * 4.5, this.addYouDrunk, this );
+  tweenText = this.add.tween(text);
+  tweenPhone = this.add.tween(phone);
+  tweenMessage = this.add.tween(message);
+  tweenTitle = this.add.tween(title);
+  tweenSplash = this.add.tween(tanuki);
 };
 
 splash.prototype.update = function() {
@@ -40,22 +50,21 @@ splash.prototype.update = function() {
 
   if ( fireButton.isDown || this.input.activePointer.isDown ) {
     tween = this.add.tween(shops);
-    var tweenText = this.add.tween(text);
-    var tweenPhone = this.add.tween(phone);
-    var tweenMessage = this.add.tween(message);
-    var tweenTitle = this.add.tween(title);
-    var tweenSplash = this.add.tween(tanuki);
 
-
-    tweenText.to({ x :-1440 }, 1000, 'Linear', true);
-    tweenPhone.to({ x :-1440 }, 1000, 'Linear', true);
-    tweenMessage.to({ x :-1440 }, 1000, 'Linear', true);
-    tweenTitle.to({ x :-1440 }, 1000, 'Linear', true);
-    tweenSplash.to({ x :-1440 }, 1000, 'Linear', true);
-    tween.to({ x :-1440 }, 1000, 'Linear', true).onComplete.add(function () {
-      console.log('game');
+    try {
+      tweenText.to({ x :-1440 }, 1000, 'Linear', true);
+      tweenPhone.to({ x :-1440 }, 1000, 'Linear', true);
+      tweenMessage.to({ x :-1440 }, 1000, 'Linear', true);
+      tweenTitle.to({ x :-1440 }, 1000, 'Linear', true);
+      tweenSplash.to({ x :-1440 }, 1000, 'Linear', true);
+      tween.to({ x :-1440 }, 1000, 'Linear', true).onComplete.add(function () {
+        console.log('game');
+        self.game.state.start('game');
+      });
+    } catch(err) {
+      console.log('catch',err);
       self.game.state.start('game');
-    });
+    }
   }
 };
 
