@@ -26,6 +26,7 @@ preloader.preload = function () {
 
   // for splash state
   this.game.load.image('splash-1', 'images/splash/splash-main.png');
+  this.game.load.image('shop', 'images/splash/all-shops.png');
   this.game.load.image('splash-text', 'images/splash/go-home-tanuki-text.png');
   this.game.load.image('splash-phone', 'images/splash/phone.png');
   this.game.load.image('splash-message-box', 'images/splash/phone-message.png');
