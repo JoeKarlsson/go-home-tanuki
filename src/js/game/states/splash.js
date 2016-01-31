@@ -30,20 +30,22 @@ splash.prototype.create = function() {
 };
 
 splash.prototype.update = function() {
+
   var self = this;
+
   if ( fireButton.isDown || this.input.activePointer.isDown ) {
     tween = this.add.tween(shops);
     var tweenText = this.add.tween(text);
-    var tweenPhone = this.add.tween(self.addPhone);
-    var tweenMessage = this.add.tween('splash-message-box');
-    var tweenTitle = this.add.tween('splash-text');
+    var tweenPhone = this.add.tween(phone);
+    var tweenMessage = this.add.tween(message);
+    var tweenTitle = this.add.tween(title);
     var tweenSplash = this.add.tween(tanuki)
 
-    tweenText.to({x:-300}, 1000, 'Linear', true);
-    tweenPhone.to({x:-300}, 1000, 'Linear', true);
-    tweenMessage.to({x:-300}, 1000, 'Linear', true);
-    tweenTitle.to({x:-300}, 1000, 'Linear', true);
-    tweenSplash.to({x:-1400}, 1000, 'Linear', true);
+    tweenText.to({x:-1440}, 1000, 'Linear', true);
+    tweenPhone.to({x:-1440}, 1000, 'Linear', true);
+    tweenMessage.to({x:-1440}, 1000, 'Linear', true);
+    tweenTitle.to({x:-1440}, 1000, 'Linear', true);
+    tweenSplash.to({x:-1440}, 1000, 'Linear', true);
     tween.to({x:-1440}, 1000, 'Linear', true).onComplete.add(function () {
       console.log('game');
       self.game.state.start('game');
@@ -56,21 +58,17 @@ splash.prototype.update = function() {
 module.exports = splash; // export to app.js
 
 // helper functions
-// 
-// function gameStart () {
-//   this.game.state.start('game');
-// }
 
 splash.prototype.addPhone = function () {
-  this.add.image( 325, 400, 'splash-phone');
+  phone = this.add.image( 325, 400, 'splash-phone');
 }
 
 splash.prototype.addMessage = function () {
-    this.add.image( 25, 260, 'splash-message-box' );
+    message = this.add.image( 25, 260, 'splash-message-box' );
 }
 
 splash.prototype.addTitle = function () {
-    this.add.image( 175,50, 'splash-text' );
+    title = this.add.image( 175,50, 'splash-text' );
 }
 
 // function moveShops () {
