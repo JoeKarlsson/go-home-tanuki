@@ -41,7 +41,7 @@ var cloudSpeed = -425;
 
 // var skySpeed = 5.5;
 
-var defaultGravityForce = 2000; // default gravity to reset
+var defaultGravityForce = 3000; // default gravity to reset
 var gravityForce = 3000; // sets gravity
 var flapForce = -500; // controls amount of 'power' player flaps
 
@@ -55,6 +55,7 @@ var upAngleTime = 100; // how many seconds player will stay rotated in ms
 var music;
 
 game.create = function () {
+  game.time.reset();
 
   // Game Music
   music = game.add.audio('music');
@@ -205,7 +206,7 @@ game.update = function () {
     lampSpeed = -2000;
     multiplier = 1;
     cloudSpeed = -850;
-    defaultGravityForce = 5000;
+    gravityForce = 5000;
   }
 
   if (isDrunk === false) {
