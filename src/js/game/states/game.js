@@ -52,7 +52,13 @@ var upAngle = -40; // how many degrees the player will rotate on click
 
 var upAngleTime = 100; // how many seconds player will stay rotated in ms
 
+var music;
+
 game.create = function () {
+
+  // Game Music
+  music = game.add.audio('music');
+  music.play();
 
   // The scrolling starfield
   starfield = this.starfield = game.add.tileSprite( 0, 0, 1024, 768, 'starfield' );
@@ -277,6 +283,9 @@ function death() {
   ground.tilePosition.x = 0;
   // drunkScore = 5;
   gravityForce = defaultGravityForce; // sets gravity
+  drunkScore = 10;
+
+  removeMusic();
 }
 
 // adds objects into the world
@@ -403,6 +412,7 @@ function restartGame() {
   drunkScore = 5;
   game.time.reset();
   game.state.start('game');
+
 }
 
 function finalScore(){
@@ -415,6 +425,10 @@ function breathalizer(drunkX){
   if (drunkX >= 10){
     isDrunk = true;
   }
+}
+
+function removeMusic () {
+  music.destroy();
 }
 
 module.exports = game;
