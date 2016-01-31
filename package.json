@@ -1,5 +1,5 @@
 {
-  "name": "Go Home Tanuki",
+  "name": "go-home-tanuki",
   "version": "0.1.0",
   "description": "Go Home Tanuki (You're Drunk) - Built with Phaser.js",
   "main": "build/js/app.min.js",
