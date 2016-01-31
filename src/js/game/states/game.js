@@ -12,11 +12,11 @@ var rock;
 var randomObstacleIndex;
 var obstacleArray = [addLamp,addLeaf,addRock];
 
+// init
+var drunkScore = 10;
+
 var smallSake;
 var largeSake;
-
-var drunkMeter = 10;
-
 
 var lampSpeed = -200;
 var groundSpeed = 2; // speed of ground movement
@@ -46,7 +46,6 @@ game.create = function () {
   player.anchor.setTo( anchorA, anchorB );
   player.body.gravity.y = gravityForce;
 
-
   //controls to play the game with
   cursors = game.input.keyboard.createCursorKeys();
   fireButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
@@ -55,21 +54,21 @@ game.create = function () {
   // init lamp obstacle
   lamp = game.add.group();
   lamp.enableBody = true;
-  lamp.createMultiple(10,'lamp');
+  lamp.createMultiple(10, 'lamp');
   lamp.setAll('outOfBoundsKill', true);
   lamp.setAll('checkWorldBounds', true);
 
   // init leaf obstacle
   leaf = game.add.group();
   leaf.enableBody = true;
-  leaf.createMultiple(10,'leaf');
+  leaf.createMultiple(10, 'leaf');
   leaf.setAll('outOfBoundsKill', true);
   leaf.setAll('checkWorldBounds', true);
 
   // init rock obstacle
   rock = game.add.group();
   rock.enableBody = true;
-  rock.createMultiple(10,'rock');
+  rock.createMultiple(10, 'rock');
   rock.setAll('outOfBoundsKill', true);
   rock.setAll('checkWorldBounds', true);
 
@@ -81,31 +80,43 @@ game.create = function () {
   // init small sake
   smallSake = game.add.group();
   smallSake.enableBody = true;
-  smallSake.createMultiple(1000,'smallSake');
+  smallSake.createMultiple(1000, 'smallSake');
   smallSake.setAll('outOfBoundsKill', true);
   smallSake.setAll('checkWorldBounds', true);
 
   // init large sake
   largeSake = game.add.group();
   largeSake.enableBody = true;
-  largeSake.createMultiple(1000,'largeSake');
+  largeSake.createMultiple(1000, 'largeSake');
   largeSake.setAll('outOfBoundsKill', true);
   largeSake.setAll('checkWorldBounds', true);
 
-  this.timer = game.time.events.loop(game.rnd.integerInRange(7000,10000), addLargeSake, null, this);
-  this.timer = game.time.events.loop(game.rnd.integerInRange(3000,7000), addSmallSake, null, this);
-  this.timer = game.time.events.loop(game.rnd.integerInRange(1000,2000), function(){
-    obstacleArray[game.rnd.integerInRange(0,2)]();
-    } , null, this);
+  // Randomally spawn obstacles
+  this.timer = game.time.events.loop(game.rnd.integerInRange(7000, 10000), addLargeSake, null, this);
+  this.timer = game.time.events.loop(game.rnd.integerInRange(3000, 7000), addSmallSake, null, this);
+  this.timer = game.time.events.loop(game.rnd.integerInRange(1000, 2000), function() {
+    obstacleArray[game.rnd.integerInRange(0, 2)]();
+  }, null, this);
+
+  // Create drunkness label
+  game.add.text(20, 20, 'Drunkness: ', { font : '30px Arial', fill : 'white' });
+  drunkMeter = game.add.text(180, 20, drunkScore, { font : '30px Arial', fill : 'white' });
+
+  // Create time score
+  game.add.text(20, 60, 'Time: ', { font : '30px Arial', fill : 'white' });
+  time = game.add.text(110, 60, "0", { font : '30px Arial', fill : 'white' });
+
+  // set timer to decrease drunkness
+  this.timer = game.time.events.loop(3000, soberUp, null, this);
 
 }; // ******** end of game create **********
 
 game.update = function () {
-  if (player.alive === false){
+  if (player.alive === false) {
     restartGame();
   }
 
-  game.physics.arcade.collide(player,ground);
+  game.physics.arcade.collide(player, ground);
 
   // scroll the ground
   ground.tilePosition.x -= groundSpeed;
@@ -122,43 +133,47 @@ game.update = function () {
   // player can collide with upper and lower bounds
   player.body.collideWorldBounds = true;
 
-    // if player is turned up, player will correctly orient down with gravity
-    if(player.angle < 90) {
-      player.angle += 2.5;
-    }
+  // if player is turned up, player will correctly orient down with gravity
+  if (player.angle < 90) {
+    player.angle += 2.5;
+  }
 
-    // flaps with spacebar is pressed or mouse is clicked
-    if (fireButton.isDown || game.input.activePointer.isDown ) {
-      flap();
-    }
+  // flaps with spacebar is pressed or mouse is clicked
+  if (fireButton.isDown || game.input.activePointer.isDown ) {
+    flap();
+  }
 
   // player interactions with world objects
-  game.physics.arcade.overlap(player,lamp,death,null,this);
-  game.physics.arcade.overlap(player,smallSake,collectSake1,null,this);
-  game.physics.arcade.overlap(player,largeSake,collectSake3,null,this);
+  game.physics.arcade.overlap(player, lamp, death, null, this);
+  game.physics.arcade.overlap(player, smallSake, collectSake1, null, this);
+  game.physics.arcade.overlap(player, largeSake, collectSake3, null, this);
 
-  // Create drunkness label
-  this.drunkScore = game.add.text(20, 20, "0", { font : '30px Arial', fill: '#fffff'});
+  time.text = Math.floor(this.game.time.totalElapsedSeconds());
+
 
 }; // ******** end of game create **********
 
 // allows player to flap upwards
 function flap() {
   player.body.velocity.y = flapForce;
-  game.add.tween(player).to({angle: upAngle}, upAngleTime).start();
+  game.add.tween(player).to({ angle : upAngle }, upAngleTime).start();
 }
 
 function death() {
-  if (player.alive === false){
+  if (player.alive === false) {
     return;
   }
   player.alive = false;
   game.time.events.remove(this.timer);
-  lamp.forEachAlive(function(lamp){
+  lamp.forEachAlive(function(lamp) {
     lamp.body.velocity.x = 0;
-  },this);
+  }, this);
   starfield.tilePosition.x = 0;
   ground.tilePosition.x = 0;
+  drunkScore = 10;
+  gravityForce = 1000; // sets gravity
+  // this.game.time = 0;
+  // time.text = this.game.time;
 }
 
 // adds objects into the world
@@ -167,14 +182,16 @@ function addLamp() {
   item.reset(1023, 367);
   item.body.velocity.x = lampSpeed;
   item.body.immovable = true;
+
   // randomObstacleIndex = game.rnd.integerInRange(0,2);
 }
 
 function addLeaf() {
   var item = leaf.getFirstExists(false);
-  item.reset(1023, game.rnd.integerInRange(25,300));
+  item.reset(1023, game.rnd.integerInRange(25, 300));
   item.body.velocity.x = lampSpeed;
   item.body.immovable = true;
+
   // randomObstacleIndex = game.rnd.integerInRange(0,2);
 }
 
@@ -183,20 +200,21 @@ function addRock() {
   item.reset(1023, 467);
   item.body.velocity.x = lampSpeed;
   item.body.immovable = true;
+
   // randomObstacleIndex = game.rnd.integerInRange(0,2);
 }
 
 // adds sake objects
 function addSmallSake() {
   var item = smallSake.getFirstExists(false);
-  item.reset(1023, game.rnd.integerInRange(50,500));
+  item.reset(1023, game.rnd.integerInRange(50, 500));
   item.body.velocity.x = -200;
   item.body.immovable = true;
 }
 
 function addLargeSake() {
   var item = largeSake.getFirstExists(false);
-  item.reset(1023, game.rnd.integerInRange(50,500));
+  item.reset(1023, game.rnd.integerInRange(50, 500));
   item.body.velocity.x = -200;
   item.body.immovable = true;
 }
@@ -204,18 +222,35 @@ function addLargeSake() {
 // sake collection functions
 function collectSake1(player,sake) {
   sake.kill();
-  drunkMeter += 1;
-  this.drunkScore.text = drunkMeter;
-  console.log(drunkMeter);
+  drink(1);
 }
 
 function collectSake3(player,sake) {
   sake.kill();
-  drunkMeter += 3;
-  console.log(drunkMeter);
+  drink(3);
 }
 
-function restartGame(){
+function drink(amount) {
+  if (!(drunkScore > 10) ) {
+    drunkScore += amount;
+    gravityForce += amount*(100);
+    player.body.gravity.y = gravityForce;
+    drunkMeter.text = drunkScore;
+
+  }
+}
+
+function soberUp() {
+  if ( drunkScore <= 0 ) {
+     return death();
+  }
+  drunkScore--;
+  gravityForce-=100;
+  player.body.gravity.y = gravityForce;
+  drunkMeter.text = drunkScore;
+}
+
+function restartGame() {
   game.state.start('game');
 }
 
