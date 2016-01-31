@@ -28,10 +28,10 @@ splash.prototype.create = function() {
   tanuki = this.add.image(0,0,'splash-1');
   fireButton = this.input.keyboard.addKey( Phaser.Keyboard.SPACEBAR );
   text = this.add.text( 350, 650, 'Click to start', style );
-   this.time.events.add( Phaser.Timer.SECOND * 1, this.addPhone, this );
-   this.time.events.add( Phaser.Timer.SECOND * 2, this.addMessage, this );
-   this.time.events.add( Phaser.Timer.SECOND * 3, this.addTitle, this );
-   this.time.events.add( Phaser.Timer.SECOND * 3.5, this.addYouDrunk, this );
+   this.time.events.add( Phaser.Timer.SECOND * 2, this.addPhone, this );
+   this.time.events.add( Phaser.Timer.SECOND * 3, this.addMessage, this );
+   this.time.events.add( Phaser.Timer.SECOND * 4, this.addTitle, this );
+   this.time.events.add( Phaser.Timer.SECOND * 4.5, this.addYouDrunk, this );
 };
 
 splash.prototype.update = function() {
