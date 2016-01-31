@@ -51,16 +51,10 @@ game.create = function () {
   // The scrolling starfield
   starfield = this.starfield = game.add.tileSprite( 0, 0, 1024, 768, 'starfield' );
 
-  // The player
-  player = this.player = this.game.add.sprite( 200, 300, 'ship' );
-  game.physics.enable( player, Phaser.Physics.ARCADE );
-  player.anchor.setTo( anchorA, anchorB );
-  player.body.gravity.y = gravityForce;
-
-  //controls to play the game with
-  cursors = game.input.keyboard.createCursorKeys();
-  fireButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-  leftClick = game.input.onDown.add(flap, player);
+  // //controls to play the game with
+  // cursors = game.input.keyboard.createCursorKeys();
+  // fireButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+  // leftClick = game.input.onDown.add(flap, player);
   // init tree background
   tree = game.add.group();
   tree.enableBody = true;
@@ -74,20 +68,6 @@ game.create = function () {
   lamp.createMultiple(10, 'lamp');
   lamp.setAll('outOfBoundsKill', true);
   lamp.setAll('checkWorldBounds', true);
-
-  // init leaf obstacle
-  leaf = game.add.group();
-  leaf.enableBody = true;
-  leaf.createMultiple(10, 'leaf');
-  leaf.setAll('outOfBoundsKill', true);
-  leaf.setAll('checkWorldBounds', true);
-
-  // init rock obstacle
-  rock = game.add.group();
-  rock.enableBody = true;
-  rock.createMultiple(10, 'rock');
-  rock.setAll('outOfBoundsKill', true);
-  rock.setAll('checkWorldBounds', true);
 
   // init shop1 background
   shop1 = game.add.group();
