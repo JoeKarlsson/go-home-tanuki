@@ -51,7 +51,6 @@ var music;
 game.create = function () {
 
   // Game Music
-  this.allowMultiple = false;
   music = game.add.audio('music');
   music.play();
 
@@ -286,6 +285,8 @@ function death() {
   ground.tilePosition.x = 0;
   drunkScore = 10;
   gravityForce = 1000; // sets gravity
+
+  removeMusic();
 }
 
 // adds objects into the world
@@ -405,20 +406,13 @@ function soberUp() {
 }
 
 function restartGame() {
-  // music.destroy();
-  // music.restart();
   game.state.start('game');
 
 }
 
-// function removeMusic () {
-//   music.destroy();
-// }
+function removeMusic () {
+  music.destroy();
+}
 
-// function restartMusic () {
-//   music.restart();
-
-//   game.cache.removeSound('music');
-// }
 
 module.exports = game;
