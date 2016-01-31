@@ -26,6 +26,8 @@ preloader.preload = function () {
   this.game.load.image('cloud1', 'images/cloud1.png');
   this.game.load.image('cloud2', 'images/cloud2.png');
   this.game.load.image('cloud3', 'images/cloud3.png');
+  // game music
+  this.game.load.audio('music', 'audio/test.mp3');
 
 
   // this.game.load.image('ship', 'images/tanukifly1.png');

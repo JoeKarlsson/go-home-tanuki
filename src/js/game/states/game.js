@@ -46,7 +46,14 @@ var upAngle = -40; // how many degrees the player will rotate on click
 
 var upAngleTime = 100; // how many seconds player will stay rotated in ms
 
+var music;
+
 game.create = function () {
+
+  // Game Music
+  this.allowMultiple = false;
+  music = game.add.audio('music');
+  music.play();
 
   // The scrolling starfield
   starfield = this.starfield = game.add.tileSprite( 0, 0, 1024, 768, 'starfield' );
@@ -398,7 +405,20 @@ function soberUp() {
 }
 
 function restartGame() {
+  // music.destroy();
+  // music.restart();
   game.state.start('game');
+
 }
+
+// function removeMusic () {
+//   music.destroy();
+// }
+
+// function restartMusic () {
+//   music.restart();
+
+//   game.cache.removeSound('music');
+// }
 
 module.exports = game;
