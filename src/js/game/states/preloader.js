@@ -6,11 +6,11 @@ preloader.preload = function () {
   this.game.load.image('starfield', 'images/starfield.png');
 
   this.game.load.image('seat', 'images/Seat_Large_1.png');
-  this.game.load.image('shop1', 'images/Shop_Large_1.png');
-  this.game.load.image('shop2', 'images/Shop_Large_2.png');
+  this.game.load.image('shop1', 'images/splash/Shop_Large_1.png');
+  this.game.load.image('shop2', 'images/splash/Shop_Large_2.png');
 
   this.game.load.image('box1', 'images/GUI_Box_1.png');
-  this.game.load.image('chatBox', 'images/Chat_phone_1.png');
+  this.game.load.image('chatBox', 'images/splash/Chat_phone_1.png');
 
   this.game.load.image('rock1', 'images/Rock_Large_1.png');
   this.game.load.image('rock2', 'images/Rock_Large_2.png');
@@ -31,12 +31,17 @@ preloader.preload = function () {
   this.game.load.image('splash-phone', 'images/splash/phone.png');
   this.game.load.image('splash-message-box', 'images/splash/phone-message.png');
 
+  // for load state
+  this.game.load.image('plaque', 'images/load/load-list.png');
+  this.game.load.image('checkmark', 'images/load/checkmark.png');
+  this.game.load.image('underline', 'images/load/underline.png');
+
 };
 
 
 // go to splash screen
 preloader.create = function () {
-  this.game.state.start('splash');
+  this.game.state.start('load');
 };
 
 module.exports = preloader;
