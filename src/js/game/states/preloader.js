@@ -12,14 +12,14 @@ preloader.preload = function () {
   this.game.load.image('box1', 'images/GUI_Box_1.png');
   this.game.load.image('chatBox', 'images/Chat_phone_1.png');
 
-  this.game.load.image('rock1', 'images/Rock_Large_1.png');
+  this.game.load.image('rock', 'images/Rock_Large_1.png');
   this.game.load.image('rock2', 'images/Rock_Large_2.png');
   this.game.load.image('lamp', 'images/Lamp_Large_1.png');
 
   this.game.load.image('drinkSmall', 'images/Drink_Small_1.png');
   this.game.load.image('smallSake', 'images/Sake_Small_1.png');
   this.game.load.image('largeSake', 'images/Sake_Large_1.png');
-  this.game.load.image('smallLeaf', 'images/Leaf_Small_1.png');
+  this.game.load.image('leaf', 'images/Leaf_Small_1.png');
 
   this.game.load.image('ship', 'images/tanukifly1.png');
   this.game.load.image('tanuki2', 'images/tanukifly2.png');

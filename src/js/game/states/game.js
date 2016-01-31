@@ -5,10 +5,18 @@ var cursors;
 var fireButton;
 var ground;
 var leftClick;
+
 var lamp;
+var leaf;
+var rock;
+var randomObstacleIndex;
+var obstacleArray = [addLamp,addLeaf,addRock];
+
 var smallSake;
 var largeSake;
+
 var drunkMeter = 10;
+
 
 var lampSpeed = -200;
 var groundSpeed = 2; // speed of ground movement
@@ -38,10 +46,6 @@ game.create = function () {
   player.anchor.setTo( anchorA, anchorB );
   player.body.gravity.y = gravityForce;
 
-  // the scrolling ground
-  ground = this.ground = game.add.tileSprite(0, 656, 1024, 112, 'ground');
-  ground.physicsType = Phaser.SPRITE;
-  game.physics.enable( ground, Phaser.Physics.ARCADE );
 
   //controls to play the game with
   cursors = game.input.keyboard.createCursorKeys();
@@ -51,27 +55,48 @@ game.create = function () {
   // init lamp obstacle
   lamp = game.add.group();
   lamp.enableBody = true;
-  lamp.createMultiple(3,'lamp');
+  lamp.createMultiple(10,'lamp');
   lamp.setAll('outOfBoundsKill', true);
   lamp.setAll('checkWorldBounds', true);
+
+  // init leaf obstacle
+  leaf = game.add.group();
+  leaf.enableBody = true;
+  leaf.createMultiple(10,'leaf');
+  leaf.setAll('outOfBoundsKill', true);
+  leaf.setAll('checkWorldBounds', true);
+
+  // init rock obstacle
+  rock = game.add.group();
+  rock.enableBody = true;
+  rock.createMultiple(10,'rock');
+  rock.setAll('outOfBoundsKill', true);
+  rock.setAll('checkWorldBounds', true);
+
+  // the scrolling ground
+  ground = this.ground = game.add.tileSprite(0, 656, 1024, 112, 'ground');
+  ground.physicsType = Phaser.SPRITE;
+  game.physics.enable( ground, Phaser.Physics.ARCADE );
 
   // init small sake
   smallSake = game.add.group();
   smallSake.enableBody = true;
-  smallSake.createMultiple(100,'smallSake');
+  smallSake.createMultiple(1000,'smallSake');
   smallSake.setAll('outOfBoundsKill', true);
   smallSake.setAll('checkWorldBounds', true);
 
   // init large sake
   largeSake = game.add.group();
   largeSake.enableBody = true;
-  largeSake.createMultiple(100,'largeSake');
+  largeSake.createMultiple(1000,'largeSake');
   largeSake.setAll('outOfBoundsKill', true);
   largeSake.setAll('checkWorldBounds', true);
 
-  this.timer = game.time.events.loop(game.rnd.integerInRange(7000,10000), addLargeSake, this);
-  this.timer = game.time.events.loop(game.rnd.integerInRange(3000,7000), addSmallSake, this);
-  this.timer = game.time.events.loop(game.rnd.integerInRange(3000,7000), addLamp, this);
+  this.timer = game.time.events.loop(game.rnd.integerInRange(7000,10000), addLargeSake, null, this);
+  this.timer = game.time.events.loop(game.rnd.integerInRange(3000,7000), addSmallSake, null, this);
+  this.timer = game.time.events.loop(game.rnd.integerInRange(1000,2000), function(){
+    obstacleArray[game.rnd.integerInRange(0,2)]();
+    } , null, this);
 
 }; // ******** end of game create **********
 
@@ -108,7 +133,7 @@ game.update = function () {
     }
 
   // player interactions with world objects
-  game.physics.arcade.overlap(player,lamp,death,null,this);
+  // game.physics.arcade.overlap(player,lamp,death,null,this);
   game.physics.arcade.overlap(player,smallSake,collectSake1,null,this);
   game.physics.arcade.overlap(player,largeSake,collectSake3,null,this);
 
@@ -141,8 +166,26 @@ function addLamp() {
   item.reset(1023, 367);
   item.body.velocity.x = lampSpeed;
   item.body.immovable = true;
+  // randomObstacleIndex = game.rnd.integerInRange(0,2);
 }
 
+function addLeaf() {
+  var item = leaf.getFirstExists(false);
+  item.reset(1023, game.rnd.integerInRange(25,300));
+  item.body.velocity.x = lampSpeed;
+  item.body.immovable = true;
+  // randomObstacleIndex = game.rnd.integerInRange(0,2);
+}
+
+function addRock() {
+  var item = rock.getFirstExists(false);
+  item.reset(1023, 467);
+  item.body.velocity.x = lampSpeed;
+  item.body.immovable = true;
+  // randomObstacleIndex = game.rnd.integerInRange(0,2);
+}
+
+// adds sake objects
 function addSmallSake() {
   var item = smallSake.getFirstExists(false);
   item.reset(1023, game.rnd.integerInRange(50,500));
@@ -157,6 +200,7 @@ function addLargeSake() {
   item.body.immovable = true;
 }
 
+// sake collection functions
 function collectSake1(player,sake) {
   sake.kill();
   drunkMeter += 1;
