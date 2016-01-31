@@ -1,10 +1,17 @@
 # Go Home Tankuki (You're Drunk)
+### A Phaser.js game
 
-A Phaser.js game
+The fox-like Tanuki often appears in Japanese folklore as a shape-shifter with supernatural powers and mischievous tendencies, and is the protagonist of our game.
 
-## What's in the Box
+Go Home Tanuki (You're Drunk) was created at Global Game Jam 2016 and uses the theme "Ritual" to exemplify the results of a demanding work ethic common in Japan. Tanuki spends his days working, drinking, going home, repeat - and the player's job is to make sure he gets home safely, at least for tonight.
 
-[NPM](https://www.npmjs.org/) via [Browserify](http://browserify.org/), [Jade](http://jade-lang.com/), [Stylus](http://learnboost.github.io/stylus/), [Lodash](http://lodash.com/), [JsHint](http://www.jshint.com/), [Uglify.js](https://github.com/mishoo/UglifyJS), [Source maps](http://www.html5rocks.com/en/tutorials/developertools/sourcemaps/), [Stats.js](https://github.com/mrdoob/stats.js/), [Google Analytics](http://www.google.com/analytics/), [Image optimisation tools](http://pngquant.org/), Livereload (auto refresh), Cache busted assets (WIP), Zip compression, [.gitignore](https://github.com/serby/GitIgnore)
+!['Tanuki'](http://49.media.tumblr.com/1f54a0a8c9086a95b2438edcc68cf7b9/tumblr_mnbosfY7oz1roqda3o1_500.gif)
+
+### Game Shots
+
+!['Tanuki Splash'](http://go-home-tanuki.callmejoe.net/images/splash/tanuki-splash-1.png)
+
+!['Tanuki Gameplay 1'](http://go-home-tanuki.callmejoe.net/images/splash/tanuki-splash-1.png)
 
 ## Installing
 
@@ -27,12 +34,32 @@ And you should now be ready to spin up a development build of your new project:
 
     grunt
 
+##Updating Code from GitHub
+Navigate to the game directory in terminal ```cd Desktop/bechdel-test```
+If you don't care about any local changes and just want a copy from the repo:
+
+```git fetch --all```
+```git pull```
+
+Your code should now be up to date! ;)
+
+##Contributing
+1. Fork it!
+2. Create your feature branch: ```git checkout -b my-new-feature```
+3. Commit your changes: ```git commit -am 'Add some feature'```
+4. Push to the branch: ````git push origin my-new-feature````
+5. Submit a pull request :D
+
 ### Recommendations
 
 * Use relative file paths for any assets loaded by your HTML or JavaScript. This will negate any potential path issues when the game is later uploaded to a webserver.
 * If you intend to store development assets (i.e PSD's, Texture Packer files, etc) inside your project, store them outside of the `src` directory to avoid bloating your builds with them.
 * Borwserify is crazy powerful. I'm not going to quote Spiderman, but you should definitely check out [Substack's Browserify Handbook](https://github.com/substack/browserify-handbook).
 * Linting is disabled by default, if you'd like to enforce it for production builds update the `.jshintrc` with rules for your coding style and remove the comment block from jshint directive in the gruntfile's build task.
+
+## What's in the Box
+
+[NPM](https://www.npmjs.org/) via [Browserify](http://browserify.org/), [Jade](http://jade-lang.com/), [Stylus](http://learnboost.github.io/stylus/), [Lodash](http://lodash.com/), [JsHint](http://www.jshint.com/), [Uglify.js](https://github.com/mishoo/UglifyJS), [Source maps](http://www.html5rocks.com/en/tutorials/developertools/sourcemaps/), [Stats.js](https://github.com/mrdoob/stats.js/), [Google Analytics](http://www.google.com/analytics/), [Image optimisation tools](http://pngquant.org/), Livereload (auto refresh), Cache busted assets (WIP), Zip compression, [.gitignore](https://github.com/serby/GitIgnore)
 
 ### Available Targets
 
@@ -68,8 +95,37 @@ When adding new libraries that aren't CommonJS compatible, you'll have to update
 
 I follow [Ben Gourley's JavaScript Style Guide](https://github.com/bengourley/js-style-guide) (with the exception of using semicolons). I've kept the code footprint low so you can easily include your own `.jshintrc`.
 
-## Created with contributions and inspiration from
+## Created by
 
-  * [Craig Beswetherick](http://grindheadgames.com)
-  * [Jesse Freeman's Phaser template](https://github.com/gamecook/phaser-project-template)
-  * The retired https://github.com/luizbills/phaser-js-boilerplate
+  * [Joe Carlson](http://www.callmejoe.net/)
+  * [Corina Jacobson](https://github.com/corinajacobson)
+  * [Sarah Kurisu](https://github.com/skurisu)
+  * [Kent Salcedo](https://github.com/kentsalcedo)
+
+## Art by
+
+  * [Bao Nyugen]()
+  * [Gabe]()
+
+##License
+The MIT License (MIT)
+
+Copyright (c) 2015 Joseph Carlson
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

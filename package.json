@@ -1,14 +1,14 @@
 {
   "name": "go-home-tanuki",
-  "version": "0.1.0",
-  "description": "Go Home Tanuki (You're Drunk) - Built with Phaser.js",
+  "version": "1.0.0",
+  "description": "Go Home Tanuki (You're Drunk) - A game built for the Global Game Jam 2016 with Phaser.js",
   "main": "build/js/app.min.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:JoeKarlsson1/side-scroller.git"
+    "url": "https://github.com/JoeKarlsson1/go-home-tanuki"
   },
   "author": "Joe Carlson",
   "license": "MIT",
