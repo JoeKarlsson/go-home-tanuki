@@ -1,5 +1,5 @@
 var splash = function  () {
-  
+
 };
 
 var fireButton;
@@ -40,7 +40,7 @@ splash.prototype.update = function() {
     var tweenPhone = this.add.tween(phone);
     var tweenMessage = this.add.tween(message);
     var tweenTitle = this.add.tween(title);
-    var tweenSplash = this.add.tween(tanuki)
+    var tweenSplash = this.add.tween(tanuki);
 
     tweenText.to({x:-1440}, 1000, 'Linear', true);
     tweenPhone.to({x:-1440}, 1000, 'Linear', true);
@@ -62,10 +62,14 @@ module.exports = splash; // export to app.js
 
 splash.prototype.addPhone = function () {
   phone = this.add.image( 325, 400, 'splash-phone');
+
 }
 
 splash.prototype.addMessage = function () {
-    message = this.add.image( 25, 260, 'splash-message-box' );
+  message = this.add.image( 25, 260, 'splash-message-box' );
+  message.animations.add('shake');
+  message.animations.play('shake', 30, true);
+  this.add.tween(message).to({ x: 50 }, 200, Phaser.Easing.Quadratic.InOut, true, 0, 1000, true);
 }
 
 splash.prototype.addTitle = function () {

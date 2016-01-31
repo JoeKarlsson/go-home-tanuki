@@ -17,10 +17,6 @@ load.prototype.update = function() {
   this.time.events.add( Phaser.Timer.SECOND * 1, this.checkmarkFunc2, this );
   this.time.events.add( Phaser.Timer.SECOND * 1.5, this.underlineFunc, this );
   this.time.events.add( Phaser.Timer.SECOND * 2.5, this.loadSplash, this );
-
-  // var timer = load.time.now;
-  // if(this.time.now >= timer+1) {
-  // }
 };
 
 module.exports = load;
@@ -42,4 +38,4 @@ load.prototype.underlineFunc = function () {
 load.prototype.loadSplash = function () {
   var self = this;
   self.game.state.start('splash');
-}
+};
