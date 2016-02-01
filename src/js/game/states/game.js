@@ -67,49 +67,49 @@ game.create = function () {
 
   tree = game.add.group();
   tree.enableBody = true;
-  tree.createMultiple(10,'tree');
+  tree.createMultiple(25,'tree');
   tree.setAll('outOfBoundsKill', true);
   tree.setAll('checkWorldBounds', true);
 
   // init lamp obstacle
   lamp = game.add.group();
   lamp.enableBody = true;
-  lamp.createMultiple(10, 'lamp');
+  lamp.createMultiple(25, 'lamp');
   lamp.setAll('outOfBoundsKill', true);
   lamp.setAll('checkWorldBounds', true);
 
   // init shop2 background
   shop2 = game.add.group();
   shop2.enableBody = true;
-  shop2.createMultiple(10,'shop2');
+  shop2.createMultiple(25,'shop2');
   shop2.setAll('outOfBoundsKill', true);
   shop2.setAll('checkWorldBounds', true);
 
   // init shop1 background
   shop1 = game.add.group();
   shop1.enableBody = true;
-  shop1.createMultiple(10,'shop1');
+  shop1.createMultiple(25,'shop1');
   shop1.setAll('outOfBoundsKill', true);
   shop1.setAll('checkWorldBounds', true);
 
   // init cloud1 obstacle
   cloud1 = game.add.group();
   cloud1.enableBody = true;
-  cloud1.createMultiple(10,'cloud1');
+  cloud1.createMultiple(25,'cloud1');
   cloud1.setAll('outOfBoundsKill', true);
   cloud1.setAll('checkWorldBounds', true);
 
   // init cloud2 obstacle
   cloud2 = game.add.group();
   cloud2.enableBody = true;
-  cloud2.createMultiple(10,'cloud2');
+  cloud2.createMultiple(25,'cloud2');
   cloud2.setAll('outOfBoundsKill', true);
   cloud2.setAll('checkWorldBounds', true);
 
   // init cloud3 obstacle
   cloud3 = game.add.group();
   cloud3.enableBody = true;
-  cloud3.createMultiple(10,'cloud3');
+  cloud3.createMultiple(25,'cloud3');
   cloud3.setAll('outOfBoundsKill', true);
   cloud3.setAll('checkWorldBounds', true);
 
@@ -129,28 +129,28 @@ game.create = function () {
   // init small sake
   smallSake = game.add.group();
   smallSake.enableBody = true;
-  smallSake.createMultiple(1000, 'smallSake');
+  smallSake.createMultiple(100, 'smallSake');
   smallSake.setAll('outOfBoundsKill', true);
   smallSake.setAll('checkWorldBounds', true);
 
   // init large sake
   largeSake = game.add.group();
   largeSake.enableBody = true;
-  largeSake.createMultiple(1000, 'largeSake');
+  largeSake.createMultiple(100, 'largeSake');
   largeSake.setAll('outOfBoundsKill', true);
   largeSake.setAll('checkWorldBounds', true);
 
   // init rock1 obstacle
   rock1 = game.add.group();
   rock1.enableBody = true;
-  rock1.createMultiple(10,'rock1');
+  rock1.createMultiple(25,'rock1');
   rock1.setAll('outOfBoundsKill', true);
   rock1.setAll('checkWorldBounds', true);
 
   // init rock2 obstacle
   rock2 = game.add.group();
   rock2.enableBody = true;
-  rock2.createMultiple(10,'rock2');
+  rock2.createMultiple(25,'rock2');
   rock2.setAll('outOfBoundsKill', true);
   rock2.setAll('checkWorldBounds', true);
 
