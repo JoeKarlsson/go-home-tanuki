@@ -3,6 +3,7 @@ var preloader = {};
 preloader.preload = function () {
 
   this.load.image('ground', 'images/ground.png');
+  this.load.image('ground2', 'images/grasstile_dark.png');
   this.game.load.image('starfield', 'images/starfield.png');
 
   this.game.load.image('seat', 'images/Seat_Large_1.png');

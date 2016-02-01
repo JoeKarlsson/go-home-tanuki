@@ -5,6 +5,7 @@ var player;
 var cursors;
 var fireButton;
 var ground;
+var ground2;
 var leftClick;
 var multiplier = 2;
 var isDrunk = false;
@@ -169,9 +170,12 @@ game.create = function () {
   this.timer = game.time.events.loop(3000, soberUp, null, this);
 
   // the scrolling ground
-  ground = this.ground = game.add.tileSprite(0, 656, 1024, 112, 'ground');
+  ground = this.ground = game.add.tileSprite(0, 656, 1024, 115, 'ground');
   ground.physicsType = Phaser.SPRITE;
   game.physics.enable( ground, Phaser.Physics.ARCADE );
+
+  ground2 = this.ground2 = game.add.tileSprite(0, 623, 1024, 150, 'ground2');
+  game.physics.enable( ground2, Phaser.Physics.ARCADE );
 
   // Randomly spawn obstacles
   this.timer = game.time.events.loop(3500, function(){
@@ -227,6 +231,14 @@ game.update = function () {
   ground.body.allowGravity = false;
   ground.body.immovable = true;
   ground.body.moves = false;
+
+  ground2.tilePosition.x -= groundSpeed;
+  game.physics.arcade.enableBody(ground2);
+  ground2.body.allowGravity = false;
+  // ground2.body.checkCollision = true;
+  ground2.body.allowGravity = false;
+  // ground2.body.immovable = true;
+  ground2.body.moves = false;
 
   // Scroll the background
   starfield.tilePosition.x -= skySpeed;
