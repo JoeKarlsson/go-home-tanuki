@@ -9,9 +9,11 @@ Go Home Tanuki (You're Drunk) was created at Global Game Jam 2016 and uses the t
 
 ### Game Shots
 
-!['Tanuki Splash'](http://go-home-tanuki.callmejoe.net/images/splash/tanuki-splash-1.png)
+![Imgur](http://i.imgur.com/i6F8OoS.png)
 
-!['Tanuki Gameplay 1'](http://go-home-tanuki.callmejoe.net/images/splash/tanuki-splash-1.png)
+![Imgur](http://i.imgur.com/0dQ6Z5k.png)
+
+[Check out out our gameplay footage here](https://youtu.be/7DED6sdNvCY)
 
 ## Installing
 
@@ -102,10 +104,14 @@ I follow [Ben Gourley's JavaScript Style Guide](https://github.com/bengourley/js
   * [Sarah Kurisu](https://github.com/skurisu)
   * [Kent Salcedo](https://github.com/kentsalcedo)
 
+!['Imgur'](http://i.imgur.com/Rulmw1r.jpg)
+
 ## Art by
 
   * [Bao Nyugen]()
   * [Gabe]()
+
+!['Artist Photos'](http://i.imgur.com/u9eqbOJ.jpg)
 
 ##License
 The MIT License (MIT)
