@@ -59,11 +59,9 @@ splash.prototype.update = function() {
       tweenTitle.to({ x :-1440 }, 1000, 'Linear', true);
       tweenSplash.to({ x :-1440 }, 1000, 'Linear', true);
       tween.to({ x :-1440 }, 1000, 'Linear', true).onComplete.add(function () {
-        console.log('game');
         self.game.state.start('game');
       });
     } catch(err) {
-      console.log('catch',err);
       self.game.state.start('game');
     }
   }
