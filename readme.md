@@ -5,6 +5,8 @@ The fox-like Tanuki often appears in Japanese folklore as a shape-shifter with s
 
 Go Home Tanuki (You're Drunk) was created at Global Game Jam 2016 and uses the theme "Ritual" to exemplify the results of a demanding work ethic common in Japan. Tanuki spends his days working, drinking, going home, repeat - and the player's job is to make sure he gets home safely, at least for tonight.
 
+You can play the game [here](https://go-home-tanuki.herokuapp.com/)
+
 !['Tanuki'](http://49.media.tumblr.com/1f54a0a8c9086a95b2438edcc68cf7b9/tumblr_mnbosfY7oz1roqda3o1_500.gif)
 
 ### Game Shots
