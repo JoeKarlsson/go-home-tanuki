@@ -25,9 +25,9 @@ You will need to first install [Node.js](http://nodejs.org/download/) and the gr
 
 ### Setup Your Project
 
-Download and unpack [Go Home Tanuki](https://github.com/JoeKarlsson1/go-home-tanuki). Or alternatively checkout from source:
+Download and unpack [Go Home Tanuki](https://github.com/JoeKarlsson/go-home-tanuki). Or alternatively checkout from source:
 
-    git clone https://github.com/JoeKarlsson1/go-home-tanuki
+    git clone https://github.com/JoeKarlsson/go-home-tanuki
     cd go-home-tanuki
 
 Next, inside the project, you need to install the project's various NPM dependencies:
@@ -39,7 +39,7 @@ And you should now be ready to spin up a development build of your new project:
     grunt
 
 ##Updating Code from GitHub
-Navigate to the game directory in terminal ```cd Desktop/bechdel-test```
+Navigate to the game directory in terminal ```cd Desktop/go-home-tanuki```
 If you don't care about any local changes and just want a copy from the repo:
 
 ```git fetch --all```
@@ -101,7 +101,7 @@ I follow [Ben Gourley's JavaScript Style Guide](https://github.com/bengourley/js
 
 ## Created by
 
-  * [Joe Carlson](http://www.callmejoe.net/)
+  * [Joe Carlson](https://www.callmejoe.net/)
   * [Corina Jacobson](https://github.com/corinajacobson)
   * [Sarah Kurisu](https://github.com/skurisu)
   * [Kent Salcedo](https://github.com/kentsalcedo)
@@ -118,7 +118,7 @@ I follow [Ben Gourley's JavaScript Style Guide](https://github.com/bengourley/js
 ##License
 The MIT License (MIT)
 
-Copyright (c) 2015 Joseph Carlson
+Copyright (c) 2017 Joe Karlsson
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
