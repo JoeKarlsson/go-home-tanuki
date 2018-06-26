@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "snyk-protect": "snyk protect",
-    "prepublish": "npm run snyk-protect"
+    "prepublish": "npm run snyk-protect",
+    "prepare": "npm run snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -47,7 +48,7 @@
     "grunt-open": "*",
     "grunt-pngmin": "^1.0.2",
     "lodash": "*",
-    "snyk": "^1.61.2"
+    "snyk": "^1.85.0"
   },
   "snyk": true
 }
