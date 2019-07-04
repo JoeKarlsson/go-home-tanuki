@@ -47,7 +47,7 @@
     "grunt-open": "*",
     "grunt-pngmin": "^1.0.2",
     "lodash": "*",
-    "snyk": "^1.61.2"
+    "snyk": "^1.189.0"
   },
   "snyk": true
 }
