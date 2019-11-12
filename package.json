@@ -7,6 +7,7 @@
   "description": "Go Home Tanuki (You're Drunk) - A game built for the Global Game Jam 2016 with Phaser.js",
   "main": "build/js/app.min.js",
   "scripts": {
+    "start": "grunt",
     "test": "echo \"Error: no test specified\" && exit 1",
     "snyk-protect": "snyk protect",
     "prepublish": "npm run snyk-protect"
