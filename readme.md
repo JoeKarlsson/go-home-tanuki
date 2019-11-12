@@ -11,9 +11,9 @@ You can play the game [here](https://go-home-tanuki.herokuapp.com/)
 
 ### Game Shots
 
-![Imgur](http://i.imgur.com/i6F8OoS.png)
+![Imgur](https://i.imgur.com/i6F8OoS.png)
 
-![Imgur](http://i.imgur.com/0dQ6Z5k.png)
+![Imgur](https://i.imgur.com/0dQ6Z5k.png)
 
 [Check out out our gameplay footage here](https://youtu.be/7DED6sdNvCY)
 
@@ -63,7 +63,7 @@ Your code should now be up to date! ;)
 
 ## What's in the Box
 
-[NPM](https://www.npmjs.org/) via [Browserify](http://browserify.org/), [Jade](http://jade-lang.com/), [Stylus](http://learnboost.github.io/stylus/), [Lodash](http://lodash.com/), [JsHint](http://www.jshint.com/), [Uglify.js](https://github.com/mishoo/UglifyJS), [Source maps](http://www.html5rocks.com/en/tutorials/developertools/sourcemaps/), [Stats.js](https://github.com/mrdoob/stats.js/), [Google Analytics](http://www.google.com/analytics/), [Image optimisation tools](http://pngquant.org/), Livereload (auto refresh), Cache busted assets (WIP), Zip compression, [.gitignore](https://github.com/serby/GitIgnore)
+[NPM](https://www.npmjs.org/) via [Browserify](https://browserify.org/), [Jade](https://jade-lang.com/), [Stylus](https://learnboost.github.io/stylus/), [Lodash](http://lodash.com/), [JsHint](http://www.jshint.com/), [Uglify.js](https://github.com/mishoo/UglifyJS), [Source maps](http://www.html5rocks.com/en/tutorials/developertools/sourcemaps/), [Stats.js](https://github.com/mrdoob/stats.js/), [Google Analytics](http://www.google.com/analytics/), [Image optimisation tools](http://pngquant.org/), Livereload (auto refresh), Cache busted assets (WIP), Zip compression, [.gitignore](https://github.com/serby/GitIgnore)
 
 ### Available Targets
 
@@ -101,7 +101,7 @@ I follow [Ben Gourley's JavaScript Style Guide](https://github.com/bengourley/js
 
 ## Created by
 
-  * [Joe Carlson](https://www.callmejoe.net/)
+  * [Joe Karlsson](https://www.joekarlsson.com/)
   * [Corina Jacobson](https://github.com/corinajacobson)
   * [Sarah Kurisu](https://github.com/skurisu)
   * [Kent Salcedo](https://github.com/kentsalcedo)
@@ -113,12 +113,12 @@ I follow [Ben Gourley's JavaScript Style Guide](https://github.com/bengourley/js
   * [Bao Nyugen]()
   * [Gabe]()
 
-!['Artist Photos'](http://i.imgur.com/u9eqbOJ.jpg)
+!['Artist Photos'](https://i.imgur.com/u9eqbOJ.jpg)
 
 ##License
 The MIT License (MIT)
 
-Copyright (c) 2017 Joe Karlsson
+Copyright (c) 2019 Joe Karlsson
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
