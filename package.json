@@ -49,7 +49,7 @@
     "grunt-contrib-uglify": "^0.9.1",
     "grunt-contrib-watch": "*",
     "grunt-open": "*",
-    "grunt-pngmin": "^1.0.2",
+    "grunt-pngmin": "^2.0.0",
     "lodash": "*",
     "snyk": "^1.61.2"
   },
