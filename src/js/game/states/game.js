@@ -1,59 +1,53 @@
-var game = {};
-var starfield;
-var player;
+// Phaser is loaded globally via script tag
 
-var cursors;
-var fireButton;
-var ground;
-var ground2;
-var leftClick;
-var multiplier = 2;
-var isDrunk = false;
+const game = {};
+let starfield;
+let player;
 
+let cursors;
+let fireButton;
+let ground;
+let ground2;
+let leftClick;
+let multiplier = 2;
+let isDrunk = false;
 
-var cloud1;
-var cloud2;
-var cloud3;
-var rock1;
-var rock2;
-var cloudArray = [addCloud1, addCloud2, addCloud3];
-var obstacleArray = [addCloud1, addCloud2, addCloud3, addRock1, addRock2];
+let cloud1;
+let cloud2;
+let cloud3;
+let rock1;
+let rock2;
 
-var lamp;
-var tree;
-var shop1;
-var shop2;
-var backgroundArray = [addLamp, addTree, addShop1, addShop2];
+let lamp;
+let tree;
+let shop1;
+let shop2;
 
 // init score items
-var drunkScore = 5;
-var timeScore = 0;
-var lastScore = 'Drunkness x Time';
-var lastScoreText = lastScore;
+let drunkScore = 5;
+let timeScore = 0;
+let lastScore = 'Drunkness x Time';
+let lastScoreText = lastScore;
 
-var largeSake;
-var smallSake;
-var sakeArray = [addLargeSake, addSmallSake, addSmallSake, addSmallSake];
+let largeSake;
+let smallSake;
 
-var lampSpeed = -200;
-var groundSpeed = 2;
-var skySpeed = 1.5;
-var cloudSpeed = -425;
+let lampSpeed = -200;
+let groundSpeed = 2;
+let skySpeed = 1.5;
+let cloudSpeed = -425;
 
-// var skySpeed = 5.5;
+let defaultGravityForce = 3000; // default gravity to reset
+let gravityForce = 3000; // sets gravity
+let flapForce = -500; // controls amount of 'power' player flaps
 
-var defaultGravityForce = 3000; // default gravity to reset
-var gravityForce = 3000; // sets gravity
-var flapForce = -500; // controls amount of 'power' player flaps
+let anchorB = 0.5; // rotational point for player
+let anchorA = 0.5; // rotational point for player
 
-var anchorB = 0.5; // rotational point for player
-var anchorA = 0.5; // rotational point for player
+let upAngle = -40; // how many degrees the player will rotate on click
+let upAngleTime = 100; // how many seconds player will stay rotated in ms
 
-var upAngle = -40; // how many degrees the player will rotate on click
-
-var upAngleTime = 100; // how many seconds player will stay rotated in ms
-
-var music;
+let music;
 
 game.create = function () {
   game.time.reset();
@@ -63,11 +57,11 @@ game.create = function () {
   music.play();
 
   // The scrolling starfield
-  starfield = this.starfield = game.add.tileSprite( 0, 0, 1024, 768, 'starfield' );
+  starfield = this.starfield = game.add.tileSprite(0, 0, 1024, 768, 'starfield');
 
   tree = game.add.group();
   tree.enableBody = true;
-  tree.createMultiple(25,'tree');
+  tree.createMultiple(25, 'tree');
   tree.setAll('outOfBoundsKill', true);
   tree.setAll('checkWorldBounds', true);
 
@@ -81,44 +75,44 @@ game.create = function () {
   // init shop2 background
   shop2 = game.add.group();
   shop2.enableBody = true;
-  shop2.createMultiple(25,'shop2');
+  shop2.createMultiple(25, 'shop2');
   shop2.setAll('outOfBoundsKill', true);
   shop2.setAll('checkWorldBounds', true);
 
   // init shop1 background
   shop1 = game.add.group();
   shop1.enableBody = true;
-  shop1.createMultiple(25,'shop1');
+  shop1.createMultiple(25, 'shop1');
   shop1.setAll('outOfBoundsKill', true);
   shop1.setAll('checkWorldBounds', true);
 
   // init cloud1 obstacle
   cloud1 = game.add.group();
   cloud1.enableBody = true;
-  cloud1.createMultiple(25,'cloud1');
+  cloud1.createMultiple(25, 'cloud1');
   cloud1.setAll('outOfBoundsKill', true);
   cloud1.setAll('checkWorldBounds', true);
 
   // init cloud2 obstacle
   cloud2 = game.add.group();
   cloud2.enableBody = true;
-  cloud2.createMultiple(25,'cloud2');
+  cloud2.createMultiple(25, 'cloud2');
   cloud2.setAll('outOfBoundsKill', true);
   cloud2.setAll('checkWorldBounds', true);
 
   // init cloud3 obstacle
   cloud3 = game.add.group();
   cloud3.enableBody = true;
-  cloud3.createMultiple(25,'cloud3');
+  cloud3.createMultiple(25, 'cloud3');
   cloud3.setAll('outOfBoundsKill', true);
   cloud3.setAll('checkWorldBounds', true);
 
   // The player
-  player = this.player = this.game.add.sprite( 200, 300, 'ship' );
+  player = this.player = this.game.add.sprite(200, 300, 'ship');
   var fly = player.animations.add('fly');
-  player.animations.play('fly',2,true);
-  game.physics.enable( player, Phaser.Physics.ARCADE );
-  player.anchor.setTo( anchorA, anchorB );
+  player.animations.play('fly', 2, true);
+  game.physics.enable(player, Phaser.Physics.ARCADE);
+  player.anchor.setTo(anchorA, anchorB);
   player.body.gravity.y = gravityForce;
 
   //controls to play the game with
@@ -143,28 +137,28 @@ game.create = function () {
   // init rock1 obstacle
   rock1 = game.add.group();
   rock1.enableBody = true;
-  rock1.createMultiple(25,'rock1');
+  rock1.createMultiple(25, 'rock1');
   rock1.setAll('outOfBoundsKill', true);
   rock1.setAll('checkWorldBounds', true);
 
   // init rock2 obstacle
   rock2 = game.add.group();
   rock2.enableBody = true;
-  rock2.createMultiple(25,'rock2');
+  rock2.createMultiple(25, 'rock2');
   rock2.setAll('outOfBoundsKill', true);
   rock2.setAll('checkWorldBounds', true);
 
   // Create last score text
-  game.add.text(250, 20, 'High Score: ', { font : '30px Arial', fill : 'white' });
-  lastScoreText = game.add.text(415, 20, lastScore, { font : '30px Arial', fill : 'white' });
+  game.add.text(250, 20, 'High Score: ', { font: '30px Arial', fill: 'white' });
+  lastScoreText = game.add.text(415, 20, lastScore, { font: '30px Arial', fill: 'white' });
 
   // Create drunkness label
-  game.add.text(20, 20, 'Drunkness: ', { font : '30px Arial', fill : 'white' });
-  drunkMeter = game.add.text(180, 20, drunkScore, { font : '30px Arial', fill : 'white' });
+  game.add.text(20, 20, 'Drunkness: ', { font: '30px Arial', fill: 'white' });
+  drunkMeter = game.add.text(180, 20, drunkScore, { font: '30px Arial', fill: 'white' });
 
   // Create time score
-  game.add.text(20, 60, 'Time: ', { font : '30px Arial', fill : 'white' });
-  time = game.add.text(110, 60, '0', { font : '30px Arial', fill : 'white' });
+  game.add.text(20, 60, 'Time: ', { font: '30px Arial', fill: 'white' });
+  time = game.add.text(110, 60, '0', { font: '30px Arial', fill: 'white' });
 
   // set timer to decrease drunkness
   this.timer = game.time.events.loop(3000, soberUp, null, this);
@@ -172,29 +166,29 @@ game.create = function () {
   // the scrolling ground
   ground = this.ground = game.add.tileSprite(0, 656, 1024, 115, 'ground');
   ground.physicsType = Phaser.SPRITE;
-  game.physics.enable( ground, Phaser.Physics.ARCADE );
+  game.physics.enable(ground, Phaser.Physics.ARCADE);
 
   ground2 = this.ground2 = game.add.tileSprite(0, 623, 1024, 150, 'ground2');
-  game.physics.enable( ground2, Phaser.Physics.ARCADE );
+  game.physics.enable(ground2, Phaser.Physics.ARCADE);
 
   // Randomly spawn obstacles
-  this.timer = game.time.events.loop(3500, function(){
-    cloudArray[game.rnd.integerInRange(0,2)]();
-    } , null, this);
-  this.timer = game.time.events.loop(5000, function(){
-    obstacleArray[game.rnd.integerInRange(0,4)]();
-    } , null, this);
+  this.timer = game.time.events.loop(3500, function () {
+    cloudArray[game.rnd.integerInRange(0, 2)]();
+  }, null, this);
+  this.timer = game.time.events.loop(5000, function () {
+    obstacleArray[game.rnd.integerInRange(0, 4)]();
+  }, null, this);
 
   // Randomly generates background items
-  this.timer = game.time.events.loop(game.rnd.integerInRange(3000,7000), function(){
-    backgroundArray[game.rnd.integerInRange(0,3)]();
-    } , null, this);
-  this.timer = game.time.events.loop(game.rnd.integerInRange(1000,17000), addTree, null, this);
+  this.timer = game.time.events.loop(game.rnd.integerInRange(3000, 7000), function () {
+    backgroundArray[game.rnd.integerInRange(0, 3)]();
+  }, null, this);
+  this.timer = game.time.events.loop(game.rnd.integerInRange(1000, 17000), addTree, null, this);
 
   // Randomly generates sake
-  this.timer = game.time.events.loop(2000, function(){
-    sakeArray[game.rnd.integerInRange(0,3)]();
-    } , null, this);
+  this.timer = game.time.events.loop(2000, function () {
+    sakeArray[game.rnd.integerInRange(0, 3)]();
+  }, null, this);
 
 }; // ******** end of game create **********
 
@@ -252,24 +246,24 @@ game.update = function () {
   }
 
   // flaps with spacebar is pressed or mouse is clicked
-  if (fireButton.isDown || game.input.activePointer.isDown ) {
+  if (fireButton.isDown || game.input.activePointer.isDown) {
     flap();
   }
 
-    if(player.body.y > 500) {
-      player.angle +=0.9;
-    }
+  if (player.body.y > 500) {
+    player.angle += 0.9;
+  }
 
   // game.physics.arcade.overlap(player,lamp,death,null,this);
-  game.physics.arcade.overlap(player,cloud1,death,null,this);
-  game.physics.arcade.overlap(player,cloud2,death,null,this);
-  game.physics.arcade.overlap(player,cloud3,death,null,this);
-  game.physics.arcade.overlap(player,rock1,death,null,this);
-  game.physics.arcade.overlap(player,rock2,death,null,this);
+  game.physics.arcade.overlap(player, cloud1, death, null, this);
+  game.physics.arcade.overlap(player, cloud2, death, null, this);
+  game.physics.arcade.overlap(player, cloud3, death, null, this);
+  game.physics.arcade.overlap(player, rock1, death, null, this);
+  game.physics.arcade.overlap(player, rock2, death, null, this);
 
 
-  game.physics.arcade.overlap(player,smallSake,collectSake1,null,this);
-  game.physics.arcade.overlap(player,largeSake,collectSake3,null,this);
+  game.physics.arcade.overlap(player, smallSake, collectSake1, null, this);
+  game.physics.arcade.overlap(player, largeSake, collectSake3, null, this);
 
   // time.text = new Time(this);
   time.text = Math.floor(this.game.time.totalElapsedSeconds());
@@ -280,7 +274,7 @@ game.update = function () {
 // allows player to flap upwards
 function flap() {
   player.body.velocity.y = flapForce;
-  game.add.tween(player).to({ angle : upAngle }, upAngleTime).start();
+  game.add.tween(player).to({ angle: upAngle }, upAngleTime).start();
 }
 
 function death() {
@@ -289,7 +283,7 @@ function death() {
   }
   player.alive = false;
   game.time.events.remove(this.timer);
-  lamp.forEachAlive(function(lamp) {
+  lamp.forEachAlive(function (lamp) {
     lamp.body.velocity.x = 0;
   }, this);
   starfield.tilePosition.x = 0;
@@ -305,7 +299,7 @@ function death() {
 function addLamp() {
   var item = lamp.getFirstExists(false);
   item.reset(1023, 467);
-  item.body.velocity.x = lampSpeed/2;
+  item.body.velocity.x = lampSpeed / 2;
   item.body.immovable = true;
 }
 
@@ -348,14 +342,14 @@ function addRock2() {
 function addTree() {
   var item = tree.getFirstExists(false);
   item.reset(1023, 376);
-  item.body.velocity.x = lampSpeed/2;
+  item.body.velocity.x = lampSpeed / 2;
   item.body.immovable = true;
 }
 
 function addShop2() {
   var item = shop2.getFirstExists(false);
   item.reset(1023, 426);
-  item.body.velocity.x = lampSpeed/2;
+  item.body.velocity.x = lampSpeed / 2;
   item.body.immovable = true;
 }
 
@@ -368,38 +362,38 @@ function addShop1() {
 
 function addCloud1() {
   var item = cloud1.getFirstExists(false);
-  item.reset(1023, game.rnd.integerInRange(0,475));
+  item.reset(1023, game.rnd.integerInRange(0, 475));
   item.body.velocity.x = cloudSpeed;
   item.body.immovable = true;
 }
 
 function addCloud2() {
   var item = cloud2.getFirstExists(false);
-  item.reset(1023, game.rnd.integerInRange(0,475));
+  item.reset(1023, game.rnd.integerInRange(0, 475));
   item.body.velocity.x = cloudSpeed;
   item.body.immovable = true;
 }
 
 function addCloud3() {
   var item = cloud3.getFirstExists(false);
-  item.reset(1023, game.rnd.integerInRange(0,500));
+  item.reset(1023, game.rnd.integerInRange(0, 500));
   item.body.velocity.x = cloudSpeed;
   item.body.immovable = true;
 }
 
 // sake collection functions
-function collectSake1(player,sake) {
+function collectSake1(player, sake) {
   sake.kill();
   drink(1);
 }
 
-function collectSake3(player,sake) {
+function collectSake3(player, sake) {
   sake.kill();
   drink(3);
 }
 
 function drink(amount) {
-  if (!(drunkScore > 10) ) {
+  if (!(drunkScore > 10)) {
     drunkScore += amount;
     gravityForce += amount * (100);
     player.body.gravity.y = gravityForce;
@@ -408,10 +402,10 @@ function drink(amount) {
 }
 
 function soberUp() {
-  if ( drunkScore === 0 ) {
+  if (drunkScore === 0) {
     drunkScore = 0;
   }
-  if ( drunkScore > 0 ){
+  if (drunkScore > 0) {
     drunkScore--;
     gravityForce -= 100;
     player.body.gravity.y = gravityForce;
@@ -420,7 +414,7 @@ function soberUp() {
 }
 
 function restartGame() {
-  finalScore(timeScore,drunkScore);
+  finalScore(timeScore, drunkScore);
   isDrunk = false;
   drunkScore = 5;
   game.time.reset();
@@ -428,20 +422,37 @@ function restartGame() {
 
 }
 
-function finalScore(){
-  if((parseInt(lastScore) < (drunkScore*timeScore)) || typeof lastScore !== 'number'){
-    lastScore = drunkScore*timeScore;
+function finalScore() {
+  if ((parseInt(lastScore) < (drunkScore * timeScore)) || typeof lastScore !== 'number') {
+    lastScore = drunkScore * timeScore;
   }
 }
 
-function breathalizer(drunkX){
-  if (drunkX >= 10){
+function breathalizer(drunkX) {
+  if (drunkX >= 10) {
     isDrunk = true;
   }
 }
 
-function removeMusic () {
+function removeMusic() {
   music.destroy();
 }
 
-module.exports = game;
+// Arrays defined after functions are declared
+let cloudArray;
+let obstacleArray;
+let backgroundArray;
+let sakeArray;
+
+// Initialize arrays with function references
+function initArrays() {
+  cloudArray = [addCloud1, addCloud2, addCloud3];
+  obstacleArray = [addCloud1, addCloud2, addCloud3, addRock1, addRock2];
+  backgroundArray = [addLamp, addTree, addShop1, addShop2];
+  sakeArray = [addLargeSake, addSmallSake, addSmallSake, addSmallSake];
+}
+
+// Call initialization before game create runs
+initArrays();
+
+export default game;
