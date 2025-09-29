@@ -75,6 +75,7 @@ Preview the production build locally.
 The game automatically deploys to GitHub Pages when you push to the master branch. The GitHub Actions workflow (`.github/workflows/deploy.yml`) handles building and deploying the game.
 
 To enable GitHub Pages:
+
 1. Go to your repository settings
 2. Navigate to Pages
 3. Set Source to "GitHub Actions"
