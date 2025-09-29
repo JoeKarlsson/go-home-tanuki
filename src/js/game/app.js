@@ -6,13 +6,22 @@ import load from './states/load.js';
 import splash from './states/splash.js';
 import gameState from './states/game.js';
 
+// Initialize game with modern ES6+ syntax
 const game = new Phaser.Game(properties.size.x, properties.size.y, Phaser.AUTO, 'game');
 
-// Register each state
-game.state.add('boot', boot);
-game.state.add('preloader', preloader);
-game.state.add('load', load);
-game.state.add('splash', splash);
-game.state.add('game', gameState);
+// Define game states
+const gameStates = {
+  boot,
+  preloader,
+  load,
+  splash,
+  game: gameState
+};
 
+// Register all states using modern iteration
+Object.entries(gameStates).forEach(([name, state]) => {
+  game.state.add(name, state);
+});
+
+// Start the game
 game.state.start('boot');
