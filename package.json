@@ -12,7 +12,13 @@
     "build:analyze": "vite build --mode analyze",
     "build:production": "vite build --mode production",
     "clean": "rm -rf dist",
-    "dev:profile": "vite --mode development --profile"
+    "dev:profile": "vite --mode development --profile",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "test:ci": "jest --ci --coverage --watchAll=false",
+    "test:runner": "node test-runner.js",
+    "test:full": "node test-runner.js coverage"
   },
   "repository": {
     "type": "git",
@@ -25,8 +31,14 @@
     "phaser": "^2.6.2"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.28.3",
     "@eslint/js": "^9.36.0",
+    "babel-jest": "^30.2.0",
+    "canvas": "^3.2.0",
     "eslint": "^9.36.0",
+    "jest": "^30.2.0",
+    "jest-environment-jsdom": "^30.2.0",
+    "jsdom": "^27.0.0",
     "terser": "^5.44.0",
     "vite": "^7.1.7"
   }

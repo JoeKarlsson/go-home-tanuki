@@ -7,6 +7,8 @@ preloader.preload = function () {
   // Essential gameplay assets (highest priority)
   this.load.image('ground', 'src/images/ground.png');
   this.load.spritesheet('ship', 'src/images/tanukisprite_115_100.png', 115, 100, 2);
+  // Load roll animation spritesheet (using existing tanuki flying sprites)
+  this.load.spritesheet('tanukiRoll', 'src/images/tanukisprite_115_100.png', 115, 100, 2);
   this.game.load.image('cloud1', 'src/images/cloud1.png');
   this.game.load.image('cloud2', 'src/images/cloud2.png');
   this.game.load.image('cloud3', 'src/images/cloud3.png');

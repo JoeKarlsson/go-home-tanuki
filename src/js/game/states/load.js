@@ -23,18 +23,71 @@ load.prototype.preload = function () {
 };
 
 load.prototype.create = function () {
-  plaque = this.add.image(200, 50, 'plaque');
+  // Center the plaque
+  plaque = this.add.image(512, 384, 'plaque');
+  plaque.anchor.set(0.5);
 
-  // Add progress text
-  progressText = this.add.text(200, 100, 'Loading splash assets...', {
-    font: '16px Arial',
-    fill: '#ffffff',
-    align: 'center'
-  });
-  progressText.anchor.set(0.5);
+  // Enhanced loading UI
+  this.createLoadingUI();
 
   // Check if assets are loaded
   this.checkLoadingProgress();
+};
+
+load.prototype.createLoadingUI = function () {
+  // Loading tips array
+  this.loadingTips = [
+    "Tip: Collect sake to increase your drunkness!",
+    "Tip: Avoid obstacles like clouds and rocks!",
+    "Tip: The more drunk you are, the harder it gets!",
+    "Tip: Try to stay alive as long as possible!",
+    "Tip: Click to flap your wings!"
+  ];
+
+  // Progress bar background (centered, much lower on screen)
+  this.progressBarBg = this.add.graphics();
+  this.progressBarBg.lineStyle(4, 0xffffff, 1);
+  this.progressBarBg.drawRect(312, 700, 400, 20); // Moved much lower
+
+  // Progress bar fill
+  this.progressBar = this.add.graphics();
+
+  // Progress text (centered, much lower)
+  progressText = this.add.text(512, 660, 'Loading splash assets...', {
+    font: 'bold 20px monospace',
+    fill: '#ffffff',
+    align: 'center',
+    stroke: '#000033',
+    strokeThickness: 3
+  });
+  progressText.anchor.set(0.5);
+
+  // Loading tip text (centered, much lower)
+  this.tipText = this.add.text(512, 750, this.loadingTips[0], {
+    font: '16px monospace',
+    fill: '#ffff00',
+    align: 'center',
+    stroke: '#000033',
+    strokeThickness: 2
+  });
+  this.tipText.anchor.set(0.5);
+
+  // Animated loading dots (centered, much lower)
+  this.loadingDots = this.add.text(512, 780, '...', {
+    font: 'bold 28px monospace',
+    fill: '#00ff00',
+    align: 'center',
+    stroke: '#000033',
+    strokeThickness: 2
+  });
+  this.loadingDots.anchor.set(0.5);
+
+  // Animate loading dots
+  this.add.tween(this.loadingDots).to({ alpha: 0.3 }, 500, Phaser.Easing.Linear.None, true, 0, -1, true);
+
+  // Rotate tip text every 2 seconds
+  this.tipRotationTimer = this.time.events.loop(2000, this.rotateTip, this);
+
 };
 
 load.prototype.checkLoadingProgress = function () {
@@ -44,11 +97,17 @@ load.prototype.checkLoadingProgress = function () {
   const totalAssets = splashKeys.length;
   const percentage = Math.round((loadedCount / totalAssets) * 100);
 
+  // Update progress text and bar
   progressText.text = `Loading splash assets... ${percentage}%`;
+  this.updateProgressBar(percentage);
 
   if (loadedCount === totalAssets && !splashAssetsLoaded) {
     splashAssetsLoaded = true;
     progressText.text = 'Loading complete!';
+    this.updateProgressBar(100);
+
+    // Stop tip rotation
+    this.time.events.remove(this.tipRotationTimer);
 
     // Proceed to splash screen
     this.time.events.add(Phaser.Timer.SECOND * 0.5, this.checkmarkFunc, this);
@@ -59,6 +118,25 @@ load.prototype.checkLoadingProgress = function () {
     // Check again in 100ms
     this.time.events.add(Phaser.Timer.SECOND * 0.1, this.checkLoadingProgress, this);
   }
+};
+
+load.prototype.updateProgressBar = function (percentage) {
+  this.progressBar.clear();
+  this.progressBar.beginFill(0xff0000, 1);
+  this.progressBar.drawRect(314, 702, (396 * percentage / 100), 16);
+  this.progressBar.endFill();
+};
+
+load.prototype.rotateTip = function () {
+  const currentIndex = this.loadingTips.indexOf(this.tipText.text);
+  const nextIndex = (currentIndex + 1) % this.loadingTips.length;
+
+  // Fade out current tip
+  this.add.tween(this.tipText).to({ alpha: 0 }, 200, Phaser.Easing.Linear.None, true).onComplete.add(() => {
+    this.tipText.text = this.loadingTips[nextIndex];
+    // Fade in new tip
+    this.add.tween(this.tipText).to({ alpha: 1 }, 200, Phaser.Easing.Linear.None, true);
+  });
 };
 
 load.prototype.update = function () {
@@ -102,6 +180,7 @@ load.prototype.checkmarkFunc2 = function () {
 load.prototype.underlineFunc = function () {
   underline = this.add.image(350, 525, 'underline');
 };
+
 
 load.prototype.loadSplash = function () {
   this.game.state.start('splash');

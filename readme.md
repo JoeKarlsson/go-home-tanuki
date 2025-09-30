@@ -49,6 +49,43 @@ npm run dev
 
 The game will be available at `http://localhost:3017/go-home-tanuki/`
 
+## 🧪 Testing
+
+The project includes a comprehensive testing setup using Jest:
+
+```bash
+# Run all tests
+npm test
+
+# Run tests in watch mode
+npm run test:watch
+
+# Run tests with coverage
+npm run test:coverage
+
+# Run tests for CI
+npm run test:ci
+```
+
+### Test Coverage
+
+The project maintains 70% coverage thresholds for:
+
+- Branches
+- Functions  
+- Lines
+- Statements
+
+### Test Structure
+
+- **Configuration Tests**: Game properties and settings
+- **Utility Tests**: Asset management and performance monitoring
+- **Game Logic Tests**: Core game mechanics and functions
+- **State Management Tests**: Game state transitions and UI
+- **Integration Tests**: End-to-end functionality
+
+See [TESTING.md](./TESTING.md) for detailed testing documentation.
+
 ## 🛠️ Available Commands
 
 ### `npm run dev`
@@ -95,14 +132,14 @@ To enable GitHub Pages:
 - [Sarah Kurisu](https://github.com/skurisu)
 - [Kent Salcedo](https://github.com/kentsalcedo)
 
-!['Team Photo'](http://i.imgur.com/Rulmw1r.jpg)
+!['Team Photo'](./assets/687474703a2f2f692e696d6775722e636f6d2f52756c6d7731722e6a7067.jpg)
 
 ## 🎨 Art By
 
 - Bao Nguyen
 - Gabe
 
-!['Artist Photos'](https://i.imgur.com/u9eqbOJ.jpg)
+!['Artist Photos'](./assets/68747470733a2f2f692e696d6775722e636f6d2f75396571624f4a2e6a7067.jpg)
 
 ## 📄 License
 
