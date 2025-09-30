@@ -18,7 +18,8 @@
     "test:coverage": "jest --coverage",
     "test:ci": "jest --ci --coverage --watchAll=false",
     "test:runner": "node test-runner.js",
-    "test:full": "node test-runner.js coverage"
+    "test:full": "node test-runner.js coverage",
+    "deploy": "./deploy.sh"
   },
   "repository": {
     "type": "git",
