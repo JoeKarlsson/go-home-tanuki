@@ -1,7 +1,21 @@
 import { defineConfig } from 'vite';
+import { copyFileSync, mkdirSync } from 'fs';
+import { resolve } from 'path';
 
 export default defineConfig({
   base: '/go-home-tanuki/',
+  plugins: [
+    {
+      name: 'copy-phaser',
+      writeBundle() {
+        // Copy Phaser file to dist
+        const srcPath = resolve(__dirname, 'src/js/lib/phaser.arcade.js');
+        const destPath = resolve(__dirname, 'dist/js/lib/phaser.arcade.js');
+        mkdirSync(resolve(__dirname, 'dist/js/lib'), { recursive: true });
+        copyFileSync(srcPath, destPath);
+      }
+    }
+  ],
   build: {
     outDir: 'dist',
     assetsDir: 'assets',

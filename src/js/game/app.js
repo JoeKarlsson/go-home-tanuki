@@ -1,5 +1,4 @@
-// Import Phaser as ES6 module
-import Phaser from 'phaser';
+// Phaser is loaded globally via script tag
 import properties from './properties.js';
 import boot from './states/boot.js';
 import preloader from './states/preloader.js';
