@@ -28,6 +28,8 @@ let drunkScore = 5;
 let timeScore = 0;
 let lastScore = 'Drunkness x Time';
 let lastScoreText = lastScore;
+let drunkMeter;
+let time;
 
 let largeSake;
 let smallSake;

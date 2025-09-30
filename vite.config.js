@@ -11,6 +11,7 @@ export default defineConfig({
       compress: {
         drop_console: true,
         drop_debugger: true,
+        pure_funcs: ['console.log', 'console.info'],
       },
     },
     rollupOptions: {
@@ -20,6 +21,10 @@ export default defineConfig({
           phaser: ['phaser'],
           // Separate p2 physics engine
           physics: ['p2'],
+          // Separate game logic
+          game: ['./src/js/game/states/game.js'],
+          // Separate utilities
+          utils: ['./src/js/game/utils/progressiveLoader.js', './src/js/game/utils/assets.js'],
         },
         // Optimize asset file names for better caching
         assetFileNames: (assetInfo) => {
@@ -41,6 +46,8 @@ export default defineConfig({
     reportCompressedSize: true,
     // Optimize for production
     target: 'es2015',
+    // Enable asset optimization
+    assetsInlineLimit: 4096, // Inline assets smaller than 4KB
   },
   server: {
     port: 3017,

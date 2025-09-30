@@ -44,10 +44,44 @@
     <meta name="twitter:creator" content="@josephcarlson131" />
 
     <link rel="stylesheet" href="/style.css" />
+    <!-- Critical CSS for faster initial render -->
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background: #000033;
+        overflow: hidden;
+      }
+      #game {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      /* Loading spinner */
+      .loading-spinner {
+        width: 40px;
+        height: 40px;
+        border: 4px solid #333;
+        border-top: 4px solid #fff;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
   </head>
   <body>
-    <div id="game"></div>
-    <script src="/node_modules/p2/build/p2.min.js"></script>
+    <div id="game">
+      <div class="loading-spinner"></div>
+    </div>
     <script src="/src/js/lib/phaser.arcade.js"></script>
     <script type="module" src="/src/js/game/app.js"></script>
   </body>

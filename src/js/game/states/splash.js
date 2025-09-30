@@ -24,8 +24,20 @@ splash.prototype.preload = function () {
 };
 
 splash.prototype.create = function () {
-  this.sound = this.sound.play('ringing');
-  this.starfield = this.add.tileSprite(0, 0, 1024, 768, 'starfield');
+  // Load audio after user interaction to avoid AudioContext issues
+  this.loadAudioAfterInteraction();
+
+  // Use placeholder background if starfield isn't loaded yet
+  if (this.game.cache.checkImageKey('starfield')) {
+    this.starfield = this.add.tileSprite(0, 0, 1024, 768, 'starfield');
+  } else {
+    // Simple gradient background as fallback
+    this.starfield = this.add.graphics();
+    this.starfield.beginFill(0x000033);
+    this.starfield.drawRect(0, 0, 1024, 768);
+    this.starfield.endFill();
+  }
+
   this.ground = this.add.tileSprite(0, 656, 1024, 112, 'ground');
   shops = this.add.sprite(-100, 0, 'shop');
 
@@ -42,6 +54,21 @@ splash.prototype.create = function () {
   tweenMessage = this.add.tween(message);
   tweenTitle = this.add.tween(title);
   tweenSplash = this.add.tween(tanuki);
+};
+
+splash.prototype.loadAudioAfterInteraction = function () {
+  // Load audio files after user interaction
+  this.game.load.audio('ringing', 'src/audio/ringing.mp3');
+  this.game.load.audio('music', 'src/audio/test.mp3');
+
+  // Play ringing sound once loaded
+  this.game.load.onLoadComplete.add(() => {
+    if (this.game.cache.checkSoundKey('ringing')) {
+      this.sound = this.sound.play('ringing');
+    }
+  }, this);
+
+  this.game.load.start();
 };
 
 splash.prototype.update = function () {
