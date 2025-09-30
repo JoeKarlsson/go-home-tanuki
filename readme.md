@@ -8,7 +8,7 @@ Go Home Tanuki (You're Drunk) was created at Global Game Jam 2016 and uses the t
 
 ## 🎮 Play the Game
 
-Play the game at: [https://joekarlsson1.github.io/go-home-tanuki/](https://joekarlsson1.github.io/go-home-tanuki/)
+Play the game at: [https://joekarlsson.github.io/go-home-tanuki/](https://joekarlsson.github.io/go-home-tanuki/)
 
 !['Tanuki'](http://49.media.tumblr.com/1f54a0a8c9086a95b2438edcc68cf7b9/tumblr_mnbosfY7oz1roqda3o1_500.gif)
 

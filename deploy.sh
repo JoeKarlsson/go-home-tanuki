@@ -32,7 +32,7 @@ if [ $? -eq 0 ]; then
     
     if [ $? -eq 0 ]; then
         echo "✅ Successfully pushed to GitHub!"
-        echo "🌐 Your game will be available at: https://joekarlsson1.github.io/go-home-tanuki/"
+        echo "🌐 Your game will be available at: https://joekarlsson.github.io/go-home-tanuki/"
         echo "⏳ GitHub Actions will automatically deploy the changes in a few minutes."
     else
         echo "❌ Failed to push to GitHub"
