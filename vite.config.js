@@ -1,18 +1,33 @@
 import { defineConfig } from 'vite';
-import { copyFileSync, mkdirSync } from 'fs';
+import { copyFileSync, mkdirSync, cpSync } from 'fs';
 import { resolve } from 'path';
 
 export default defineConfig({
   base: '/go-home-tanuki/',
   plugins: [
     {
-      name: 'copy-phaser',
+      name: 'copy-assets',
       writeBundle() {
         // Copy Phaser file to dist
-        const srcPath = resolve(__dirname, 'src/js/lib/phaser.arcade.js');
-        const destPath = resolve(__dirname, 'dist/js/lib/phaser.arcade.js');
+        const phaserSrcPath = resolve(__dirname, 'src/js/lib/phaser.arcade.js');
+        const phaserDestPath = resolve(__dirname, 'dist/js/lib/phaser.arcade.js');
         mkdirSync(resolve(__dirname, 'dist/js/lib'), { recursive: true });
-        copyFileSync(srcPath, destPath);
+        copyFileSync(phaserSrcPath, phaserDestPath);
+        
+        // Copy images to dist
+        const imagesSrcPath = resolve(__dirname, 'src/images');
+        const imagesDestPath = resolve(__dirname, 'dist/src/images');
+        cpSync(imagesSrcPath, imagesDestPath, { recursive: true });
+        
+        // Copy audio to dist
+        const audioSrcPath = resolve(__dirname, 'src/audio');
+        const audioDestPath = resolve(__dirname, 'dist/src/audio');
+        cpSync(audioSrcPath, audioDestPath, { recursive: true });
+        
+        // Copy favicon
+        const faviconSrcPath = resolve(__dirname, 'src/images/splash/tanuki-splash-1.png');
+        const faviconDestPath = resolve(__dirname, 'dist/favicon.ico');
+        copyFileSync(faviconSrcPath, faviconDestPath);
       }
     }
   ],
