@@ -3,7 +3,7 @@ import { copyFileSync, mkdirSync, cpSync } from 'fs';
 import { resolve } from 'path';
 
 export default defineConfig({
-  base: '/go-home-tanuki/',
+  base: '/',
   plugins: [
     {
       name: 'copy-assets',
