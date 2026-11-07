@@ -1,9 +1,9 @@
-import properties from '../properties.js';
+import { applySoundSetting } from '../pageControls.js';
 
 const boot = {};
 
 boot.create = function () {
-  this.game.sound.mute = properties.mute;
+  applySoundSetting(this.game);
 
   // Step the game logic at a fixed 60 per second, catching up on slow frames.
   // Scrolling moves a set amount per step, so with one step per frame it ran
