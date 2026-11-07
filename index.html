@@ -81,11 +81,47 @@
         overflow: hidden;
       }
       #game {
+        display: flow-root;
         height: 100svh;
+      }
+      .poster {
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        height: 100svh;
+        object-fit: contain;
+        pointer-events: none;
       }
       #game canvas {
         display: block;
+        /* Shown with the first screen, once Phaser has scaled it to fit */
+        visibility: hidden;
         touch-action: none;
+      }
+      .fullscreen-toggle:not([hidden]) {
+        position: fixed;
+        right: max(12px, env(safe-area-inset-right));
+        bottom: max(12px, env(safe-area-inset-bottom));
+        z-index: 2;
+        width: 44px;
+        height: 44px;
+        display: grid;
+        place-items: center;
+        padding: 0;
+        border: 0;
+        border-radius: 6px;
+        background: rgb(0 0 0 / 0.55);
+        color: #ffffff;
+        opacity: 0.7;
+        cursor: pointer;
+      }
+      .fullscreen-toggle:hover,
+      .fullscreen-toggle:focus-visible {
+        opacity: 1;
+      }
+      .fullscreen-toggle:focus-visible {
+        outline: 3px solid #ffffff;
+        outline-offset: 2px;
       }
       .visually-hidden {
         position: absolute;
@@ -106,7 +142,14 @@
         A one-button game. Click, tap or press the spacebar to flap and fly the tanuki home through the night.
         Collect sake to raise his drunkness and your score, and dodge the clouds and rocks.
       </p>
-      <div id="game" aria-label="Go Home Tanuki game"></div>
+      <!-- Paints right away while Phaser loads; boot.js swaps it for the canvas once it's scaled -->
+      <img class="poster" src="/images/splash/splash-main.webp" alt="" width="1024" height="768" fetchpriority="high" />
+      <div id="game" role="application" aria-label="Go Home Tanuki game"></div>
+      <button class="fullscreen-toggle" type="button" aria-label="Full screen" hidden>
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+          <path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5" fill="none" stroke="currentColor" stroke-width="2" />
+        </svg>
+      </button>
     </main>
     <script src="/analytics.js" defer></script>
     <script type="module" src="/src/js/game/app.js"></script>

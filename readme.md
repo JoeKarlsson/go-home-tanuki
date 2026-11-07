@@ -46,11 +46,15 @@ The game runs at `http://localhost:3017/`.
 ## 🧪 Testing
 
 ```bash
-npx playwright install chromium   # once
+npx playwright install chromium firefox webkit   # once
 npm test
 ```
 
-The tests build the site, serve it, and play it in a browser on a desktop and a phone: the head metadata and icons, the title screen into a flight with no console errors or failed requests, and the game scaled to fit the screen.
+The tests build the site, serve it, and play it in Chrome, Firefox and Safari (WebKit) on a desktop, plus Android and iPhone: metadata, accessibility (axe), a full round, audio starting from a key press, and the game embedded in another page the way joekarlsson.com shows it (it fits, game keys don't scroll the page, it pauses when scrolled out of view, and full screen works from inside the embed).
+
+## 🧩 Embedding
+
+The game is built to run in an iframe as well as on its own page. Give the iframe `allow="fullscreen; autoplay"` and `allowfullscreen` so the full-screen button and sound work. It scales to fit any frame, letterboxed; it pauses when scrolled out of view, and keeps the spacebar from scrolling the page around it.
 
 ## 🛠️ Available Commands
 

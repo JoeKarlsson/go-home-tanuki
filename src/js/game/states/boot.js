@@ -16,6 +16,21 @@ boot.create = function () {
   this.scale.pageAlignHorizontally = true;
   this.scale.pageAlignVertically = true;
 
+  // Space would scroll the page around the game, which matters when it's embedded
+  this.input.keyboard.addKeyCapture(Phaser.Keyboard.SPACEBAR);
+
+  // Show the canvas only once it's scaled to fit, so it doesn't jump into place.
+  // A forced refresh always calls the resize callback, and Phaser lays the canvas
+  // out right after it.
+  this.scale.setResizeCallback(() => {
+    this.scale.setResizeCallback(null);
+    queueMicrotask(() => {
+      document.querySelector('.poster').remove();
+      this.game.canvas.style.visibility = 'visible';
+    });
+  });
+  this.scale.refresh();
+
   this.game.state.start('preloader');
 };
 

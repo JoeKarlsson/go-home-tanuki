@@ -70,8 +70,11 @@ let timeScore = 0;
 let distanceScore = 0;
 let comboMultiplier = 1;
 let comboCount = 0;
-let lastScore = 'Drunkness x Time';
+const HIGH_SCORE_KEY = 'go-home-tanuki-high-score';
+let lastScore = loadHighScore();
 let lastScoreText;
+// Every repeating spawn timer for the current run, so a crash can stop them all
+let runTimers = [];
 let drunkMeter;
 let time;
 let distanceText;
@@ -137,6 +140,7 @@ game.create = function () {
   isRolling = false;
   rollSpeed = 0;
   isDeathScreen = false;
+  runTimers = [];
 
   // Game Music
   music = game.add.audio('music');
@@ -247,7 +251,7 @@ game.create = function () {
   this.createVisualEffects();
 
   // set timer to decrease drunkness
-  this.timer = game.time.events.loop(3000, soberUp, null, this);
+  runTimers.push(game.time.events.loop(3000, soberUp, null, this));
 
   // the scrolling ground
   ground = this.ground = game.add.tileSprite(0, 656, 1024, 115, 'ground');
@@ -263,23 +267,23 @@ game.create = function () {
   ground2.body.moves = false;
 
   // Randomly spawn obstacles
-  this.timer = game.time.events.loop(3500, function () {
+  runTimers.push(game.time.events.loop(3500, function () {
     cloudArray[game.rnd.integerInRange(0, 2)]();
-  }, null, this);
-  this.timer = game.time.events.loop(5000, function () {
+  }, null, this));
+  runTimers.push(game.time.events.loop(5000, function () {
     obstacleArray[game.rnd.integerInRange(0, 4)]();
-  }, null, this);
+  }, null, this));
 
   // Randomly generates background items
-  this.timer = game.time.events.loop(game.rnd.integerInRange(3000, 7000), function () {
+  runTimers.push(game.time.events.loop(game.rnd.integerInRange(3000, 7000), function () {
     backgroundArray[game.rnd.integerInRange(0, 3)]();
-  }, null, this);
-  this.timer = game.time.events.loop(game.rnd.integerInRange(1000, 17000), addTree, null, this);
+  }, null, this));
+  runTimers.push(game.time.events.loop(game.rnd.integerInRange(1000, 17000), addTree, null, this));
 
   // Randomly generates sake
-  this.timer = game.time.events.loop(2000, function () {
+  runTimers.push(game.time.events.loop(2000, function () {
     sakeArray[game.rnd.integerInRange(0, 3)]();
-  }, null, this);
+  }, null, this));
 
 }; // ******** end of game create **********
 
@@ -535,7 +539,7 @@ function death() {
   }, this);
 
   player.alive = false;
-  game.time.events.remove(this.timer);
+  runTimers.forEach((timer) => game.time.events.remove(timer));
   lamp.forEachAlive(function (lamp) {
     lamp.body.velocity.x = 0;
   }, this);
@@ -731,6 +735,7 @@ function restartGame() {
   gameOverText.visible = false;
   restartInstructionText.visible = false;
   isDeathScreen = false;
+  runTimers = [];
 
   game.state.start('game');
 }
@@ -746,7 +751,28 @@ function finalScore() {
   if (typeof lastScore !== 'number' || lastScore < totalScore) {
     lastScore = totalScore;
     lastScoreText.text = lastScore;
+    saveHighScore(totalScore);
     showAchievement('NEW HIGH SCORE!');
+  }
+}
+
+// The high score is kept in this browser between visits. Storage can be off
+// (private browsing, blocked site data); the game still works, just without it.
+function loadHighScore() {
+  try {
+    const saved = Number(window.localStorage.getItem(HIGH_SCORE_KEY));
+    return saved > 0 ? saved : 'Drunkness x Time';
+  } catch (error) {
+    console.warn('High score not loaded:', error);
+    return 'Drunkness x Time';
+  }
+}
+
+function saveHighScore(score) {
+  try {
+    window.localStorage.setItem(HIGH_SCORE_KEY, String(score));
+  } catch (error) {
+    console.warn('High score not saved:', error);
   }
 }
 

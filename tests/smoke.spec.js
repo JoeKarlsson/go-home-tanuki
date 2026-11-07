@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import AxeBuilder from '@axe-core/playwright';
 
 // Collects console errors, page errors and failed requests so each test can assert none happened
 function watchForErrors(page) {
@@ -82,10 +83,36 @@ test('a crash shows the score, and a tap or click starts a fresh run', async ({ 
     window.game.world.children.find((child) => child.text?.startsWith?.('GAME OVER'))?.text);
   await expect.poll(gameOverText).toMatch(/GAME OVER\nSCORE: \d+/);
 
+  // Nothing new spawns behind the GAME OVER screen, and the score is saved for the next visit
+  expect(await page.evaluate(() => window.game.time.events.events.filter((event) => event.loop && !event.pendingDelete).length)).toBe(0);
+  const savedScore = await page.evaluate(() => window.localStorage.getItem('go-home-tanuki-high-score'));
+  expect(Number(savedScore)).toBeGreaterThan(0);
+
   // Restart is allowed two seconds after the crash; it must work without a keyboard
   await page.waitForTimeout(2200);
   await tapOrClick();
   await expect.poll(() => page.evaluate(() => window.game.state.states.game.player.alive)).toBe(true);
   expect(await page.evaluate(() => window.game.time.slowMotion)).toBe(1);
   expect(errors).toEqual([]);
+});
+
+test('the high score from a past visit shows on the next one', async ({ page, isMobile }) => {
+  await page.addInitScript(() => window.localStorage.setItem('go-home-tanuki-high-score', '4321'));
+  await page.goto('/');
+  const canvas = page.locator('#game canvas');
+  await page.waitForFunction(() => window.game?.state.current === 'splash', null, { timeout: 15000 });
+  await (isMobile ? canvas.tap() : canvas.click());
+  await page.waitForFunction(() => window.game.state.current === 'game');
+  await expect.poll(() => page.evaluate(() =>
+    window.game.world.children.some((child) => child.text === '4321'))).toBe(true);
+});
+
+
+test('has no automatically detectable accessibility problems', async ({ page }) => {
+  await page.goto('/');
+  await page.waitForLoadState('networkidle');
+  const results = await new AxeBuilder({ page })
+    .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'])
+    .analyze();
+  expect(results.violations.map((violation) => `${violation.id}: ${violation.nodes.map((node) => node.target).join(', ')}`)).toEqual([]);
 });
