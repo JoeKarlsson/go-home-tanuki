@@ -16,7 +16,7 @@ What Go Home Tanuki looked like in November 2026, recorded for [its page on joek
 
 Play the game at: [https://tanuki.joekarlsson.com/](https://tanuki.joekarlsson.com/)
 
-!['Tanuki'](http://49.media.tumblr.com/1f54a0a8c9086a95b2438edcc68cf7b9/tumblr_mnbosfY7oz1roqda3o1_500.gif)
+!['Tanuki'](https://49.media.tumblr.com/1f54a0a8c9086a95b2438edcc68cf7b9/tumblr_mnbosfY7oz1roqda3o1_500.gif)
 
 ## 📸 Game Screenshots
 
@@ -82,7 +82,7 @@ Every push to `main` runs lint and the tests in GitHub Actions, then deploys `di
 ## 👥 Created By
 
 - [Joe Karlsson](https://www.joekarlsson.com/)
-- [Corina Jacobson](https://github.com/corinajacobson)
+- Corina Jacobson
 - [Sarah Kurisu](https://github.com/skurisu)
 - [Kent Salcedo](https://github.com/kentsalcedo)
 

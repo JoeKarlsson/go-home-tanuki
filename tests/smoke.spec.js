@@ -61,3 +61,31 @@ test('plays from the title screen into a flight without errors, fitting the scre
   expect(fit).toEqual({ inside: true, scrolls: false });
   expect(errors).toEqual([]);
 });
+
+test('a crash shows the score, and a tap or click starts a fresh run', async ({ page, isMobile }) => {
+  const errors = watchForErrors(page);
+  await page.goto('/');
+  const canvas = page.locator('#game canvas');
+  const tapOrClick = () => (isMobile ? canvas.tap() : canvas.click());
+  await page.waitForFunction(() => window.game?.state.current === 'splash', null, { timeout: 15000 });
+  await tapOrClick();
+  await page.waitForFunction(() => window.game.state.current === 'game');
+  await page.waitForTimeout(500);
+
+  // Drop a rock onto the tanuki
+  await page.evaluate(() => {
+    const player = window.game.state.states.game.player;
+    const rocks = window.game.world.children.find((child) => child.children?.[0]?.key === 'rock1');
+    rocks.getFirstExists(false).reset(player.x, player.y);
+  });
+  const gameOverText = () => page.evaluate(() =>
+    window.game.world.children.find((child) => child.text?.startsWith?.('GAME OVER'))?.text);
+  await expect.poll(gameOverText).toMatch(/GAME OVER\nSCORE: \d+/);
+
+  // Restart is allowed two seconds after the crash; it must work without a keyboard
+  await page.waitForTimeout(2200);
+  await tapOrClick();
+  await expect.poll(() => page.evaluate(() => window.game.state.states.game.player.alive)).toBe(true);
+  expect(await page.evaluate(() => window.game.time.slowMotion)).toBe(1);
+  expect(errors).toEqual([]);
+});

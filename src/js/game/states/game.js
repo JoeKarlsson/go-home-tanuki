@@ -48,17 +48,10 @@ const UI_STYLES = {
   }
 };
 
-let cursors;
 let fireButton;
-let pauseButton;
 let ground;
 let ground2;
-let leftClick;
-let multiplier = 2;
 let isDrunk = false;
-let isPaused = false;
-let pauseOverlay;
-let pauseText;
 
 let cloud1;
 let cloud2;
@@ -78,7 +71,7 @@ let distanceScore = 0;
 let comboMultiplier = 1;
 let comboCount = 0;
 let lastScore = 'Drunkness x Time';
-let lastScoreText = lastScore;
+let lastScoreText;
 let drunkMeter;
 let time;
 let distanceText;
@@ -106,7 +99,6 @@ let upAngleTime = 100; // how many seconds player will stay rotated in ms
 
 // Roll animation variables
 let isRolling = false;
-let rollAnimation = null;
 let rollSpeed = 0;
 let rollDirection = 1; // 1 for right, -1 for left
 
@@ -132,6 +124,19 @@ let restartInstructionText;
 
 game.create = function () {
   game.time.reset();
+  game.time.slowMotion = 1;
+
+  // Module-level state outlives the state restart, so reset everything a run changes
+  drunkScore = 5;
+  isDrunk = false;
+  timeScore = 0;
+  distanceScore = 0;
+  comboCount = 0;
+  comboMultiplier = 1;
+  gravityForce = defaultGravityForce;
+  isRolling = false;
+  rollSpeed = 0;
+  isDeathScreen = false;
 
   // Game Music
   music = game.add.audio('music');
@@ -190,20 +195,19 @@ game.create = function () {
 
   // The player
   player = this.player = this.game.add.sprite(200, 300, 'ship');
-  var fly = player.animations.add('fly');
+  player.animations.add('fly');
   player.animations.play('fly', 2, true);
 
   // Add roll animation
-  var roll = player.animations.add('roll', [0, 1], 8, true);
+  player.animations.add('roll', [0, 1], 8, true);
 
   game.physics.enable(player, Phaser.Physics.ARCADE);
   player.anchor.setTo(anchorA, anchorB);
   player.body.gravity.y = gravityForce;
 
   //controls to play the game with
-  cursors = game.input.keyboard.createCursorKeys();
   fireButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-  leftClick = game.input.onDown.add(flap, player);
+  game.input.onDown.add(flap, player);
 
   // init small sake
   smallSake = game.add.group();
@@ -307,6 +311,7 @@ game.createUI = function () {
 
   // Death screen UI elements
   gameOverText = game.add.text(512, 300, 'GAME OVER', {
+    align: 'center',
     font: 'bold 48px monospace',
     fill: '#ff0000',
     stroke: '#000000',
@@ -317,7 +322,7 @@ game.createUI = function () {
   gameOverText.anchor.set(0.5);
   gameOverText.visible = false;
 
-  restartInstructionText = game.add.text(512, 400, 'Press SPACEBAR to restart', {
+  restartInstructionText = game.add.text(512, 400, 'Tap or press space to restart', {
     font: 'bold 24px monospace',
     fill: '#ffffff',
     stroke: '#000000',
@@ -434,18 +439,14 @@ game.update = function () {
     showDeathScreen();
   }
 
-  // Check for spacebar restart during death screen
-  if (isDeathScreen && fireButton.isDown) {
-    const currentTime = game.time.now;
-    if (currentTime - deathScreenStartTime >= deathScreenDelay) {
-      restartGame();
-    }
+  // Spacebar restart during the death screen (taps and clicks go through flap's onDown)
+  if (fireButton.isDown) {
+    restartIfAllowed();
   }
 
   if (isDrunk === true) {
     skySpeed = 10;
     lampSpeed = -2000;
-    multiplier = 1;
     cloudSpeed = -850;
     gravityForce = 5000;
   }
@@ -453,9 +454,7 @@ game.update = function () {
   if (isDrunk === false) {
     skySpeed = 1.5;
     lampSpeed = -200;
-    multiplier = 2;
     cloudSpeed = -550;
-    defaultGravityForce = 3000;
   }
 
   // Check for ground collision and handle roll animation
@@ -483,7 +482,7 @@ game.update = function () {
   }
 
   // flaps with spacebar is pressed or mouse is clicked
-  if (fireButton.isDown || game.input.activePointer.isDown) {
+  if (player.alive && (fireButton.isDown || game.input.activePointer.isDown)) {
     flap();
   }
 
@@ -529,10 +528,10 @@ function death() {
   // game.camera.flash(0xff0000, 200); // Not available in Phaser 2.6.2
   // game.camera.fade(0x000000, 100); // Not available in Phaser 2.6.2
 
-  // Slow motion effect
-  game.time.timeScale = 0.3;
+  // Slow motion for a moment (slowMotion 3 runs the game at a third of its speed)
+  game.time.slowMotion = 3;
   game.time.events.add(1000, function () {
-    game.time.timeScale = 1.0;
+    game.time.slowMotion = 1;
   }, this);
 
   player.alive = false;
@@ -542,10 +541,9 @@ function death() {
   }, this);
   starfield.tilePosition.x = 0;
   ground.tilePosition.x = 0;
-  // drunkScore = 5;
   gravityForce = defaultGravityForce; // sets gravity
-  drunkScore = 10;
 
+  finalScore();
   removeMusic();
 }
 
@@ -720,16 +718,20 @@ function showDeathScreen() {
   game.add.tween(restartInstructionText).to({ alpha: 0.3 }, 800, Phaser.Easing.Sinusoidal.InOut, true, 0, -1, true);
 }
 
+// Restarts once the death screen has been up long enough that a held key or
+// finger from the crash doesn't skip it
+function restartIfAllowed() {
+  if (isDeathScreen && game.time.now - deathScreenStartTime >= deathScreenDelay) {
+    restartGame();
+  }
+}
+
 function restartGame() {
   // Hide death screen UI
   gameOverText.visible = false;
   restartInstructionText.visible = false;
   isDeathScreen = false;
 
-  finalScore(timeScore, drunkScore);
-  isDrunk = false;
-  drunkScore = 5;
-  game.time.reset();
   game.state.start('game');
 }
 
@@ -740,8 +742,10 @@ function finalScore() {
   const comboBonus = comboCount * comboMultiplier * 5;
   const totalScore = baseScore + distanceBonus + comboBonus;
 
-  if ((parseInt(lastScore) < totalScore) || typeof lastScore !== 'number') {
+  gameOverText.text = `GAME OVER\nSCORE: ${totalScore}`;
+  if (typeof lastScore !== 'number' || lastScore < totalScore) {
     lastScore = totalScore;
+    lastScoreText.text = lastScore;
     showAchievement('NEW HIGH SCORE!');
   }
 }
@@ -790,7 +794,7 @@ function initArrays() {
 initArrays();
 
 // Roll animation functions
-function onGroundCollision(player, ground) {
+function onGroundCollision(player) {
   if (!isRolling && player.body.velocity.y > 0) {
     startRollAnimation();
   }
@@ -850,6 +854,10 @@ function stopRollAnimation() {
 
 // Modified flap function to handle roll animation
 function flap() {
+  if (!player.alive) {
+    restartIfAllowed();
+    return;
+  }
   // If rolling, stop roll and start flying
   if (isRolling) {
     stopRollAnimation();

@@ -2,9 +2,6 @@
 
 const load = function () { };
 let plaque;
-let checkmark;
-let checkmark2;
-let underline;
 let progressText;
 let splashAssetsLoaded = false;
 
@@ -170,15 +167,15 @@ load.prototype.preloadGameplayAssets = function () {
 
 // helper functions
 load.prototype.checkmarkFunc = function () {
-  checkmark = this.add.image(350, 260, 'checkmark');
+  this.add.image(350, 260, 'checkmark');
 };
 
 load.prototype.checkmarkFunc2 = function () {
-  checkmark2 = this.add.image(350, 360, 'checkmark');
+  this.add.image(350, 360, 'checkmark');
 };
 
 load.prototype.underlineFunc = function () {
-  underline = this.add.image(350, 525, 'underline');
+  this.add.image(350, 525, 'underline');
 };
 
 
