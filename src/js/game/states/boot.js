@@ -5,11 +5,11 @@ const boot = {};
 boot.create = function () {
   this.game.sound.mute = properties.mute;
 
-  // Hide loading spinner once Phaser is ready
-  const loadingSpinner = document.querySelector('.loading-spinner');
-  if (loadingSpinner) {
-    loadingSpinner.style.display = 'none';
-  }
+  // The game is drawn at 1024x768; scale it to fit any window (phone to 4K)
+  // without cropping, centered with letterboxing.
+  this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+  this.scale.pageAlignHorizontally = true;
+  this.scale.pageAlignVertically = true;
 
   this.game.state.start('preloader');
 };

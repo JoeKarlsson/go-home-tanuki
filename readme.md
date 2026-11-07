@@ -30,98 +30,46 @@ Play the game at: [https://tanuki.joekarlsson.com/](https://tanuki.joekarlsson.c
 
 ### Prerequisites
 
-- [Node.js](https://nodejs.org/) (version 18 or higher)
+- [Node.js](https://nodejs.org/) 22 or higher
 
 ### Installation
 
-1. Clone the repository:
-
 ```bash
-git clone https://github.com/JoeKarlsson1/go-home-tanuki
+git clone https://github.com/JoeKarlsson/go-home-tanuki
 cd go-home-tanuki
-```
-
-2. Install dependencies:
-
-```bash
 npm install
-```
-
-3. Start the development server:
-
-```bash
 npm run dev
 ```
 
-The game will be available at `http://localhost:3017/go-home-tanuki/`
+The game runs at `http://localhost:3017/`.
 
 ## 🧪 Testing
 
-The project includes a comprehensive testing setup using Jest:
-
 ```bash
-# Run all tests
+npx playwright install chromium   # once
 npm test
-
-# Run tests in watch mode
-npm run test:watch
-
-# Run tests with coverage
-npm run test:coverage
-
-# Run tests for CI
-npm run test:ci
 ```
 
-### Test Coverage
-
-The project maintains 70% coverage thresholds for:
-
-- Branches
-- Functions  
-- Lines
-- Statements
-
-### Test Structure
-
-- **Configuration Tests**: Game properties and settings
-- **Utility Tests**: Asset management and performance monitoring
-- **Game Logic Tests**: Core game mechanics and functions
-- **State Management Tests**: Game state transitions and UI
-- **Integration Tests**: End-to-end functionality
-
-See [TESTING.md](./TESTING.md) for detailed testing documentation.
+The tests build the site, serve it, and play it in a browser on a desktop and a phone: the head metadata and icons, the title screen into a flight with no console errors or failed requests, and the game scaled to fit the screen.
 
 ## 🛠️ Available Commands
 
-### `npm run dev`
-
-Starts a development server with hot module replacement at `http://localhost:3017/go-home-tanuki/`
-
-### `npm run build`
-
-Creates an optimized production build in the `dist` directory.
-
-### `npm run preview`
-
-Preview the production build locally.
+- `npm run dev`: development server with hot reload
+- `npm run build`: production build in `dist/`
+- `npm run preview`: serve the production build
+- `npm run lint`: ESLint
+- `npm run images`: redraw the icons and social card (build, start `npx vite preview --port 4173`, then run it)
 
 ## 📦 What's Inside
 
-- **[Vite](https://vitejs.dev/)** - Lightning fast build tool
-- **[Phaser 2.6.2](http://phaser.io/)** - HTML5 game framework
-- **ES6 Modules** - Modern JavaScript
-- **GitHub Actions** - Automatic deployment to GitHub Pages
+- **[Phaser CE 2.21](https://github.com/phaserjs/phaser-ce)**, the arcade-physics build, served with a content hash
+- **[Vite 8](https://vitejs.dev/)**
+- **[Playwright](https://playwright.dev/)** for tests
+- Sprites in `public/images` are lossless WebP; the music and phone ring in `public/audio` are loudness-normalized MP3s
 
 ## 🚢 Deployment
 
-The game automatically deploys to GitHub Pages when you push to the main branch. The GitHub Actions workflow (`.github/workflows/deploy.yml`) handles building and deploying the game.
-
-To enable GitHub Pages:
-
-1. Go to your repository settings
-2. Navigate to Pages
-3. Set Source to "GitHub Actions"
+Every push to `main` runs lint and the tests in GitHub Actions, then deploys `dist/` to GitHub Pages at [tanuki.joekarlsson.com](https://tanuki.joekarlsson.com/).
 
 ## 🤝 Contributing
 

@@ -1,88 +1,114 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
   <head>
-    <title>Go Home Tanuki</title>
-    <meta property="og:title" content="Go Home Tanuki" />
-    <meta
-      property="og:description"
-      content="Go Home Tanuki (You're Drunk) - A game built for the Global Game Jam 2016 with Phaser.js"
-    />
-
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' https://plausible.joekarlsson.io; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; media-src 'self' blob: data:; connect-src 'self' https://plausible.joekarlsson.io; object-src 'none'; base-uri 'self'; form-action 'none'"
+    />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <title>Go Home Tanuki (You're Drunk)</title>
     <meta
       name="description"
-      content="Go Home Tanuki (You're Drunk) - A game built for the Global Game Jam 2016 with Phaser.js"
+      content="Fly a drunk tanuki home through the night, grab sake on the way, and dodge clouds and rocks. Our Global Game Jam 2016 game, in your browser."
     />
-    <meta
-      name="author"
-      content="Corina Jacobson, Sarah Kurisu, Joe Carlson, Kent Salcedo"
-    />
-    <meta name="copyright" content="Copyright (c) 2016 - Joe Carlson" />
+    <meta name="author" content="Joe Karlsson" />
+    <link rel="canonical" href="https://tanuki.joekarlsson.com/" />
+    <meta name="theme-color" content="#000033" />
+    <meta name="color-scheme" content="only dark" />
+    <meta name="darkreader-lock" />
 
-    <meta
-      property="og:url"
-      content="https://tanuki.joekarlsson.com/"
-    />
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Go Home Tanuki" />
+    <meta property="og:url" content="https://tanuki.joekarlsson.com/" />
+    <meta property="og:title" content="Go Home Tanuki (You're Drunk)" />
     <meta
-      property="og:image"
-      content="https://tanuki.joekarlsson.com/src/images/splash/tanuki-splash-1.png"
+      property="og:description"
+      content="Fly a drunk tanuki home through the night, grab sake on the way, and dodge clouds and rocks. A Global Game Jam 2016 game."
     />
-
+    <meta property="og:image" content="https://tanuki.joekarlsson.com/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="A sleepy tanuki slumped over a bar while a phone rings, under the Go Home Tanuki title" />
+    <meta property="og:locale" content="en_US" />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@joekarlsson1" />
+    <meta name="twitter:creator" content="@joekarlsson1" />
+    <meta name="twitter:title" content="Go Home Tanuki (You're Drunk)" />
     <meta
       name="twitter:description"
-      content="Go Home Tanuki (You're Drunk) - A game built for the Global Game Jam 2016 with Phaser.js"
+      content="Fly a drunk tanuki home through the night, grab sake on the way, and dodge clouds and rocks. A Global Game Jam 2016 game."
     />
-    <meta name="twitter:title" content="Go Home Tanuki" />
-    <meta name="twitter:site" content="@JoeCarlson131" />
-    <meta
-      name="twitter:image"
-      content="https://tanuki.joekarlsson.com/src/images/splash/tanuki-splash-1.png"
-    />
-    <meta name="twitter:creator" content="@josephcarlson131" />
+    <meta name="twitter:image" content="https://tanuki.joekarlsson.com/og-image.jpg" />
+    <meta name="twitter:image:alt" content="A sleepy tanuki slumped over a bar while a phone rings, under the Go Home Tanuki title" />
 
-    <link rel="stylesheet" href="./style.css" />
-    <!-- Critical CSS for faster initial render -->
+    <link rel="icon" href="/favicon.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Phaser CE sets window.Phaser and must run before the game module; vite.config.js swaps in the hashed file -->
+    <script src="/phaser.js" defer vite-ignore></script>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "VideoGame",
+        "name": "Go Home Tanuki (You're Drunk)",
+        "url": "https://tanuki.joekarlsson.com/",
+        "description": "Fly a drunk tanuki home through the night. Made at Global Game Jam 2016 by Joe Karlsson, Kent Salcedo, Sarah Kurisu and Corina.",
+        "author": { "@type": "Person", "name": "Joe Karlsson", "url": "https://www.joekarlsson.com/" },
+        "genre": "Arcade",
+        "playMode": "SinglePlayer",
+        "gamePlatform": "Web browser",
+        "applicationCategory": "Game",
+        "operatingSystem": "Any",
+        "dateCreated": "2016-01"
+      }
+    </script>
+
     <style>
+      :root {
+        color-scheme: only dark;
+        --background: #000033;
+      }
+      html,
       body {
         margin: 0;
         padding: 0;
-        background: #000033;
+        height: 100%;
+        background: var(--background);
         overflow: hidden;
       }
       #game {
-        width: 100vw;
-        height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        height: 100svh;
       }
-      /* Loading spinner */
-      .loading-spinner {
-        width: 40px;
-        height: 40px;
-        border: 4px solid #333;
-        border-top: 4px solid #fff;
-        border-radius: 50%;
-        animation: spin 1s linear infinite;
+      #game canvas {
+        display: block;
+        touch-action: none;
       }
-      @keyframes spin {
-        0% {
-          transform: rotate(0deg);
-        }
-        100% {
-          transform: rotate(360deg);
-        }
+      .visually-hidden {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        clip-path: inset(50%);
+        white-space: nowrap;
       }
     </style>
   </head>
+
   <body>
-    <div id="game">
-      <div class="loading-spinner"></div>
-    </div>
-    <script src="./js/lib/phaser.arcade.js"></script>
+    <main>
+      <h1 class="visually-hidden">Go Home Tanuki (You're Drunk)</h1>
+      <p class="visually-hidden">
+        A one-button game. Click, tap or press the spacebar to flap and fly the tanuki home through the night.
+        Collect sake to raise his drunkness and your score, and dodge the clouds and rocks.
+      </p>
+      <div id="game" aria-label="Go Home Tanuki game"></div>
+    </main>
+    <script src="/analytics.js" defer></script>
     <script type="module" src="/src/js/game/app.js"></script>
   </body>
 </html>

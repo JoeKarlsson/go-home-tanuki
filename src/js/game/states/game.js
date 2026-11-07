@@ -249,9 +249,14 @@ game.create = function () {
   ground = this.ground = game.add.tileSprite(0, 656, 1024, 115, 'ground');
   ground.physicsType = Phaser.SPRITE;
   game.physics.enable(ground, Phaser.Physics.ARCADE);
+  ground.body.allowGravity = false;
+  ground.body.immovable = true;
+  ground.body.moves = false;
 
   ground2 = this.ground2 = game.add.tileSprite(0, 623, 1024, 150, 'ground2');
   game.physics.enable(ground2, Phaser.Physics.ARCADE);
+  ground2.body.allowGravity = false;
+  ground2.body.moves = false;
 
   // Randomly spawn obstacles
   this.timer = game.time.events.loop(3500, function () {
@@ -458,20 +463,8 @@ game.update = function () {
 
   // scroll the ground
   ground.tilePosition.x -= groundSpeed;
-  game.physics.arcade.enableBody(ground);
-  ground.body.allowGravity = false;
-  ground.body.checkCollision = true;
-  ground.body.allowGravity = false;
-  ground.body.immovable = true;
-  ground.body.moves = false;
 
   ground2.tilePosition.x -= groundSpeed;
-  game.physics.arcade.enableBody(ground2);
-  ground2.body.allowGravity = false;
-  // ground2.body.checkCollision = true;
-  ground2.body.allowGravity = false;
-  // ground2.body.immovable = true;
-  ground2.body.moves = false;
 
   // Scroll the background
   starfield.tilePosition.x -= skySpeed;
@@ -561,13 +554,6 @@ function addLamp() {
   var item = lamp.getFirstExists(false);
   item.reset(1023, 467);
   item.body.velocity.x = lampSpeed / 2;
-  item.body.immovable = true;
-}
-
-function addLeaf() {
-  var item = leaf.getFirstExists(false);
-  item.reset(1023, game.rnd.integerInRange(25, 300));
-  item.body.velocity.x = lampSpeed;
   item.body.immovable = true;
 }
 

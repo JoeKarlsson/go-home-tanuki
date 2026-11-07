@@ -1,25 +1,16 @@
 {
   "name": "go-home-tanuki",
   "version": "1.0.0",
-  "description": "Go Home Tanuki (You're Drunk) - A game built for the Global Game Jam 2016 with Phaser.js",
+  "description": "Go Home Tanuki (You're Drunk): fly a drunk tanuki home. Global Game Jam 2016, made with Phaser.",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "lint": "eslint src/js/**/*.js --no-warn-ignored",
-    "lint:fix": "eslint src/js/**/*.js --fix --no-warn-ignored",
-    "build:analyze": "vite build --mode analyze",
-    "build:production": "vite build --mode production",
-    "clean": "rm -rf dist",
-    "dev:profile": "vite --mode development --profile",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage",
-    "test:ci": "jest --ci --coverage --watchAll=false",
-    "test:runner": "node test-runner.js",
-    "test:full": "node test-runner.js coverage",
-    "deploy": "./deploy.sh"
+    "lint": "eslint src tests scripts",
+    "lint:fix": "eslint src tests scripts --fix",
+    "test": "playwright test",
+    "images": "node scripts/render-images.mjs"
   },
   "repository": {
     "type": "git",
@@ -28,19 +19,16 @@
   "author": "Joe Karlsson",
   "license": "MIT",
   "dependencies": {
-    "p2": "^0.7.1",
-    "phaser": "^2.6.2"
+    "phaser-ce": "2.21.0"
+  },
+  "engines": {
+    "node": ">=22"
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.28.3",
-    "@eslint/js": "^9.36.0",
-    "babel-jest": "^30.2.0",
-    "canvas": "^3.2.0",
-    "eslint": "^9.36.0",
-    "jest": "^30.2.0",
-    "jest-environment-jsdom": "^30.2.0",
-    "jsdom": "^27.0.0",
-    "terser": "^5.44.0",
-    "vite": "^7.1.7"
+    "@eslint/js": "^10.0.1",
+    "@playwright/test": "^1.65.0",
+    "eslint": "^10.14.0",
+    "globals": "^17.14.0",
+    "vite": "^8.3.6"
   }
 }

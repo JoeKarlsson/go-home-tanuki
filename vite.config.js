@@ -1,92 +1,52 @@
 import { defineConfig } from 'vite';
-import { copyFileSync, mkdirSync, cpSync } from 'fs';
-import { resolve } from 'path';
+import { readFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
+import { fileURLToPath } from 'node:url';
+
+// Phaser CE is a UMD build that sets window.Phaser, so it loads as a classic
+// script ahead of the game module. The arcade-physics build is all the game
+// needs. In a build it's emitted with a content hash so it can be cached long.
+function phaserClassicScript() {
+  const phaserPath = fileURLToPath(
+    new URL('./node_modules/phaser-ce/build/custom/phaser-arcade-physics.min.js', import.meta.url)
+  );
+  const source = readFileSync(phaserPath);
+  const hash = createHash('sha256').update(source).digest('hex').slice(0, 8);
+  let publicPath = '/phaser.js';
+
+  return {
+    name: 'phaser-classic-script',
+    configResolved(config) {
+      if (config.command === 'build') {
+        publicPath = `/assets/phaser-${hash}.js`;
+      }
+    },
+    configureServer(server) {
+      server.middlewares.use('/phaser.js', (_req, res) => {
+        res.setHeader('Content-Type', 'text/javascript');
+        res.end(source);
+      });
+    },
+    buildStart() {
+      if (publicPath !== '/phaser.js') {
+        this.emitFile({ type: 'asset', fileName: publicPath.slice(1), source });
+      }
+    },
+    transformIndexHtml: {
+      order: 'pre',
+      handler: (html) => html.replace('src="/phaser.js"', `src="${publicPath}"`)
+    }
+  };
+}
 
 export default defineConfig({
   base: '/',
-  plugins: [
-    {
-      name: 'copy-assets',
-      writeBundle() {
-        // Copy Phaser file to dist
-        const phaserSrcPath = resolve(__dirname, 'src/js/lib/phaser.arcade.js');
-        const phaserDestPath = resolve(__dirname, 'dist/js/lib/phaser.arcade.js');
-        mkdirSync(resolve(__dirname, 'dist/js/lib'), { recursive: true });
-        copyFileSync(phaserSrcPath, phaserDestPath);
-        
-        // Copy images to dist
-        const imagesSrcPath = resolve(__dirname, 'src/images');
-        const imagesDestPath = resolve(__dirname, 'dist/src/images');
-        cpSync(imagesSrcPath, imagesDestPath, { recursive: true });
-        
-        // Copy audio to dist
-        const audioSrcPath = resolve(__dirname, 'src/audio');
-        const audioDestPath = resolve(__dirname, 'dist/src/audio');
-        cpSync(audioSrcPath, audioDestPath, { recursive: true });
-        
-        // Copy favicon
-        const faviconSrcPath = resolve(__dirname, 'src/images/splash/tanuki-splash-1.png');
-        const faviconDestPath = resolve(__dirname, 'dist/favicon.ico');
-        copyFileSync(faviconSrcPath, faviconDestPath);
-      }
-    }
-  ],
+  plugins: [phaserClassicScript()],
   build: {
     outDir: 'dist',
-    assetsDir: 'assets',
-    // Performance optimizations
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: true,
-        drop_debugger: true,
-        pure_funcs: ['console.log', 'console.info'],
-      },
-    },
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          // Separate Phaser into its own chunk for better caching
-          phaser: ['phaser'],
-          // Separate p2 physics engine
-          physics: ['p2'],
-          // Separate game logic
-          game: ['./src/js/game/states/game.js'],
-          // Separate utilities
-          utils: ['./src/js/game/utils/progressiveLoader.js', './src/js/game/utils/assets.js'],
-        },
-        // Optimize asset file names for better caching
-        assetFileNames: (assetInfo) => {
-          const info = assetInfo.name.split('.');
-          const ext = info[info.length - 1];
-          if (/png|jpe?g|svg|gif|tiff|bmp|ico/i.test(ext)) {
-            return `images/[name]-[hash][extname]`;
-          }
-          if (/mp3|wav|ogg|m4a/i.test(ext)) {
-            return `audio/[name]-[hash][extname]`;
-          }
-          return `assets/[name]-[hash][extname]`;
-        },
-        chunkFileNames: 'js/[name]-[hash].js',
-        entryFileNames: 'js/[name]-[hash].js',
-      },
-    },
-    // Enable compression
-    reportCompressedSize: true,
-    // Optimize for production
-    target: 'es2015',
-    // Enable asset optimization
-    assetsInlineLimit: 4096, // Inline assets smaller than 4KB
+    assetsDir: 'assets'
   },
   server: {
-    port: 3017,
-    // Enable HMR for faster development
-    hmr: true,
-  },
-  // Optimize dependencies
-  optimizeDeps: {
-    include: ['phaser', 'p2'],
-  },
-  // Enable source maps for debugging
-  sourcemap: true,
+    port: 3017
+  }
 });

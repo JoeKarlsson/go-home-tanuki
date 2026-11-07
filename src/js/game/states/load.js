@@ -11,12 +11,12 @@ let splashAssetsLoaded = false;
 load.prototype.preload = function () {
   // Load splash assets here instead of in preloader
   // Note: Audio will be loaded after user interaction to avoid AudioContext issues
-  this.game.load.image('splash-1', 'src/images/splash/splash-main.png');
-  this.game.load.image('shop', 'src/images/splash/all-shops.png');
-  this.game.load.image('splash-text', 'src/images/splash/go-home-tanuki-text.png');
-  this.game.load.image('splash-phone', 'src/images/splash/phone.png');
-  this.game.load.image('youdrunk', 'src/images/splash/youredrunk.png');
-  this.game.load.image('splash-message-box', 'src/images/splash/phone-message.png');
+  this.game.load.image('splash-1', 'images/splash/splash-main.webp');
+  this.game.load.image('shop', 'images/splash/all-shops.webp');
+  this.game.load.image('splash-text', 'images/splash/go-home-tanuki-text.webp');
+  this.game.load.image('splash-phone', 'images/splash/phone.webp');
+  this.game.load.image('youdrunk', 'images/splash/youredrunk.webp');
+  this.game.load.image('splash-message-box', 'images/splash/phone-message.webp');
 
   // Start loading
   this.game.load.start();
@@ -149,21 +149,21 @@ load.prototype.update = function () {
 
 load.prototype.preloadGameplayAssets = function () {
   // Load gameplay assets in background (excluding audio to avoid AudioContext issues)
-  this.game.load.image('ground2', 'src/images/grasstile_dark.png');
-  this.game.load.image('starfield', 'src/images/starfield.png');
-  this.game.load.image('seat', 'src/images/Seat_Large_1.png');
-  this.game.load.image('box1', 'src/images/GUI_Box_1.png');
-  this.game.load.image('chatBox', 'src/images/splash/Chat_phone_1.png');
-  this.game.load.image('rock1', 'src/images/Rock_Large_1.png');
-  this.game.load.image('rock2', 'src/images/Rock_Large_2.png');
-  this.game.load.image('lamp', 'src/images/Lamp_Large_1.png');
-  this.game.load.image('tree', 'src/images/tree-blackout.png');
-  this.game.load.image('shop1', 'src/images/shoptrio1.png');
-  this.game.load.image('shop2', 'src/images/shoptrio1-desaturated.png');
-  this.game.load.image('drinkSmall', 'src/images/Drink_Small_1.png');
-  this.game.load.image('smallSake', 'src/images/Sake_Small_1.png');
-  this.game.load.image('largeSake', 'src/images/Sake_Large_1.png');
-  this.game.load.image('tanuki2', 'src/images/tanukifly2.png');
+  this.game.load.image('ground2', 'images/grasstile_dark.webp');
+  this.game.load.image('starfield', 'images/starfield.webp');
+  this.game.load.image('seat', 'images/Seat_Large_1.webp');
+  this.game.load.image('box1', 'images/GUI_Box_1.webp');
+  this.game.load.image('chatBox', 'images/splash/Chat_phone_1.webp');
+  this.game.load.image('rock1', 'images/Rock_Large_1.webp');
+  this.game.load.image('rock2', 'images/Rock_Large_2.webp');
+  this.game.load.image('lamp', 'images/Lamp_Large_1.webp');
+  this.game.load.image('tree', 'images/tree-blackout.webp');
+  this.game.load.image('shop1', 'images/shoptrio1.webp');
+  this.game.load.image('shop2', 'images/shoptrio1-desaturated.webp');
+  this.game.load.image('drinkSmall', 'images/Drink_Small_1.webp');
+  this.game.load.image('smallSake', 'images/Sake_Small_1.webp');
+  this.game.load.image('largeSake', 'images/Sake_Large_1.webp');
+  this.game.load.image('tanuki2', 'images/tanukifly2.webp');
 
   this.game.load.start();
 };

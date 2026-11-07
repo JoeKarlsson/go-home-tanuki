@@ -9,15 +9,7 @@ let phone;
 let message;
 let title;
 let tanuki;
-let sound;
-let tween;
 let youDrunk;
-let transitionSpeed = 2;
-let tweenText;
-let tweenPhone;
-let tweenMessage;
-let tweenTitle;
-let tweenSplash;
 const style = { font: 'bold 32px monospace', fill: '#fff', boundsAlignH: 'center', boundsAlignV: 'middle' };
 
 splash.prototype.preload = function () {
@@ -44,22 +36,20 @@ splash.prototype.create = function () {
   tanuki = this.add.image(0, 0, 'splash-1');
 
   fireButton = this.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-  text = this.add.text(350, 650, 'Click to start', style);
+  this.starting = false;
+  this.input.onDown.addOnce(this.startGame, this);
+  text = this.add.text(512, 650, 'Tap or click to start', style);
+  text.anchor.x = 0.5;
   this.time.events.add(Phaser.Timer.SECOND * 2, this.addPhone, this);
   this.time.events.add(Phaser.Timer.SECOND * 3, this.addMessage, this);
   this.time.events.add(Phaser.Timer.SECOND * 4, this.addTitle, this);
   this.time.events.add(Phaser.Timer.SECOND * 4.5, this.addYouDrunk, this);
-  tweenText = this.add.tween(text);
-  tweenPhone = this.add.tween(phone);
-  tweenMessage = this.add.tween(message);
-  tweenTitle = this.add.tween(title);
-  tweenSplash = this.add.tween(tanuki);
 };
 
 splash.prototype.loadAudioAfterInteraction = function () {
   // Load audio files after user interaction
-  this.game.load.audio('ringing', 'src/audio/ringing.mp3');
-  this.game.load.audio('music', 'src/audio/test.mp3');
+  this.game.load.audio('ringing', 'audio/ringing.mp3');
+  this.game.load.audio('music', 'audio/music.mp3');
 
   // Play ringing sound once loaded
   this.game.load.onLoadComplete.add(() => {
@@ -72,24 +62,26 @@ splash.prototype.loadAudioAfterInteraction = function () {
 };
 
 splash.prototype.update = function () {
-  const self = this;
-
-  if (fireButton.isDown || this.input.activePointer.isDown) {
-    tween = this.add.tween(shops);
-
-    try {
-      tweenText.to({ x: -1440 }, 1000, 'Linear', true);
-      tweenPhone.to({ x: -1440 }, 1000, 'Linear', true);
-      tweenMessage.to({ x: -1440 }, 1000, 'Linear', true);
-      tweenTitle.to({ x: -1440 }, 1000, 'Linear', true);
-      tweenSplash.to({ x: -1440 }, 1000, 'Linear', true);
-      tween.to({ x: -1440 }, 1000, 'Linear', true).onComplete.add(function () {
-        self.game.state.start('game');
-      });
-    } catch (err) {
-      self.game.state.start('game');
-    }
+  if (fireButton.isDown) {
+    this.startGame();
   }
+};
+
+// Slides the title screen away, then starts the game. Taps and clicks use the
+// onDown event (added in create) so a quick tap between frames still counts.
+splash.prototype.startGame = function () {
+  if (this.starting) {
+    return;
+  }
+  this.starting = true;
+  [text, phone, message, title, tanuki, shops, youDrunk]
+    .filter(Boolean)
+    .forEach((item, index, items) => {
+      const slide = this.add.tween(item).to({ x: -1440 }, 1000, 'Linear', true);
+      if (index === items.length - 1) {
+        slide.onComplete.add(() => this.game.state.start('game'));
+      }
+    });
 };
 
 // helper functions
