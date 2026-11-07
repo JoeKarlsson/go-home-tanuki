@@ -8,9 +8,9 @@ Go Home Tanuki (You're Drunk) was created at Global Game Jam 2016 and uses the t
 
 ## Recording (November 2026)
 
-[![Go Home Tanuki: a loading card listing Tanuki's daily ritual (work, drink, go home), the title screen of a sleepy tanuki slumped over a bar with a phone saying come home, then the tanuki flying through the night past clouds and sake bottles](.github/readme/2026-11-recording.webp)](.github/readme/2026-11-recording.mp4)
+![Go Home Tanuki: a loading card listing Tanuki's daily ritual (work, drink, go home), the title screen of a sleepy tanuki slumped over a bar with a phone saying come home, then the tanuki flying through the night past clouds and sake bottles](.github/readme/2026-11-recording.gif)
 
-What Go Home Tanuki looked like in November 2026, recorded for [its page on joekarlsson.com](https://www.joekarlsson.com/work/go-home-tanuki/). Click the picture to play the video.
+What Go Home Tanuki looked like in November 2026, recorded for [its page on joekarlsson.com](https://www.joekarlsson.com/work/go-home-tanuki/). The full-quality video is [2026-11-recording.mp4](.github/readme/2026-11-recording.mp4).
 
 ## 🎮 Play the Game
 
