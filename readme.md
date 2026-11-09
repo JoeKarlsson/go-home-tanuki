@@ -1,21 +1,15 @@
 # Go Home Tanuki (You're Drunk)
 
-Go Home Tanuki is a game where you fly a drunk tanuki home, made at Global
-Game Jam 2016 on the theme "Ritual." This repo is the whole game, built with
-Phaser CE and Vite. Play it at
-[tanuki.joekarlsson.com](https://tanuki.joekarlsson.com/).
-
 ![Go Home Tanuki: a loading card listing Tanuki's daily ritual (work, drink, go home), the title screen of a sleepy tanuki slumped over a bar with a phone saying come home, then the tanuki flying through the night past clouds and sake bottles](.github/readme/2026-11-recording.gif)
 
-## Artist statement
+Go Home Tanuki is about a ritual a lot of office workers know: work late, go
+drinking with your coworkers, get home somehow, and do it again tomorrow. We
+made it at Global Game Jam 2016, where the theme was "Ritual." You fly a drunk
+tanuki home through the night, and the more sake he drinks, the higher you
+score.
 
-The theme for Global Game Jam 2016 was "Ritual," and we picked one a lot of
-office workers know: work late, go drinking with your coworkers, get home
-somehow, and do it again tomorrow. He never gets home. A run ends when he hits
-a cloud or a rock, and the title screen puts him back at the bar, slumped over
-while his phone rings to tell him to come home.
-
-[Read the full statement](https://www.joekarlsson.com/work/go-home-tanuki/).
+[Play it at tanuki.joekarlsson.com](https://tanuki.joekarlsson.com/) ·
+[Read the full statement](https://www.joekarlsson.com/work/go-home-tanuki/)
 
 ## Quick start
 
