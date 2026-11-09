@@ -3,10 +3,9 @@
 ![Go Home Tanuki: a loading card listing Tanuki's daily ritual (work, drink, go home), the title screen of a sleepy tanuki slumped over a bar with a phone saying come home, then the tanuki flying through the night past clouds and sake bottles](.github/readme/2026-11-recording.gif)
 
 Go Home Tanuki is about a ritual a lot of office workers know: work late, go
-drinking with your coworkers, get home somehow, and do it again tomorrow. We
-made it at Global Game Jam 2016, where the theme was "Ritual." You fly a drunk
-tanuki home through the night, and the more sake he drinks, the higher you
-score.
+drinking with your coworkers, get home somehow, and do it again tomorrow. You
+fly a drunk tanuki home through the night, and the drunker he gets, the higher
+you score. He never gets home.
 
 [Play it at tanuki.joekarlsson.com](https://tanuki.joekarlsson.com/) ·
 [Read the full statement](https://www.joekarlsson.com/work/go-home-tanuki/)
