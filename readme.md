@@ -12,6 +12,12 @@ Go Home Tanuki (You're Drunk) was created at Global Game Jam 2016 and uses the t
 
 What Go Home Tanuki looked like in November 2026, recorded for [its page on joekarlsson.com](https://www.joekarlsson.com/work/go-home-tanuki/). The full-quality video is [2026-11-recording.mp4](.github/readme/2026-11-recording.mp4).
 
+## Artist statement
+
+The theme for Global Game Jam 2016 was "Ritual," and we picked one a lot of office workers know: work late, go drinking with your coworkers, get home somehow, and do it again tomorrow. He never gets home. A run ends when he hits a cloud or a rock, and the title screen puts him back at the bar, slumped over while his phone rings to tell him to come home.
+
+[Read the full statement](https://www.joekarlsson.com/work/go-home-tanuki/). It's also on the game's [about page](https://tanuki.joekarlsson.com/about.html).
+
 ## 🎮 Play the Game
 
 Play the game at: [https://tanuki.joekarlsson.com/](https://tanuki.joekarlsson.com/)
